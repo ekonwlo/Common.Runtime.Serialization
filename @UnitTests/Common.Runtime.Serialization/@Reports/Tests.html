@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html>
+  <head>
+    <title>xUnit.net Test Results</title>
+    <style type="text/css">
+          body { font-family: Calibri, Verdana, Arial, sans-serif; background-color: White; color: Black; }
+          h2,h3,h4,h5 { margin: 0; padding: 0; }
+          h3 { font-weight: normal; }
+          h4 { margin: 0.5em 0; }
+          h5 { font-weight: normal; font-style: italic; margin-bottom: 0.75em; }
+          h6 { font-size: 0.9em; font-weight: bold; margin: 0.5em 0 0 0.75em; padding: 0; }
+          pre,table { font-family: Consolas; font-size: 0.8em; margin: 0 0 0 1em; padding: 0; }
+          table { padding-bottom: 0.25em; }
+          th { padding: 0 0.5em; border-right: 1px solid #bbb; text-align: left; }
+          td { padding-left: 0.5em; }
+          .divided { border-top: solid 1px #f0f5fa; padding-top: 0.5em; }
+          .row, .altrow { padding: 0.1em 0.3em; }
+          .row { background-color: #f0f5fa; }
+          .altrow { background-color: #e1ebf4; }
+          .success, .failure, .skipped { font-family: Arial Unicode MS; font-weight: normal; float: left; width: 1em; display: block; }
+          .success { color: #0c0; }
+          .failure { color: #c00; }
+          .skipped { color: #cc0; }
+          .timing { float: right; }
+          .indent { margin: 0.25em 0 0.5em 2em; }
+          .clickable { cursor: pointer; }
+          .testcount { font-size: 85%; }
+        </style>
+    <script language="javascript">
+          function ToggleClass(id) {
+            var elem = document.getElementById(id);
+            if (elem.style.display == "none") {
+              elem.style.display = "block";
+            }
+            else {
+              elem.style.display = "none";
+            }
+          }
+        </script>
+  </head>
+  <body>
+    <h3 class="divided">
+      <b>Assemblies Run</b>
+    </h3>
+    <div>C:\Users\ekonwlo\Documents\Visual Studio 2017\Projects\Common.Runtime.Serialization\@UnitTests\Common.Runtime.Serialization\bin\Debug\Common.Runtime.Serialization.UnitTests.DLL</div>
+    <h3 class="divided">
+      <b>Summary</b>
+    </h3>
+    <div>
+          Tests run: <a href="#all"><b>45</b></a> —
+          
+            Failures: <a href="#failures"><b>1</b></a>,
+          
+          Run time: <b>0.732s</b>,
+          Finished: <b>05/18/2017 19:36:57</b></div>
+    <br />
+    <h2>
+      <a id="failures" />Failed tests
+          </h2>
+    <div class="row">
+      <span class="timing">0.0044477s
+        </span>
+      <span class="failure">✘</span>
+       Should convert from object<br clear="all" /><pre>System.ArgumentException : '' is an invalid expanded name.</pre><pre>   at System.Xml.Linq.XName.Get(String expandedName)
+   at System.Xml.Linq.XName.op_Implicit(String expandedName)
+   at Common.Runtime.Serialization.Xml.XObjectSerializer.ConvertFromObject(Object item) in C:\Users\ekonwlo\Documents\Visual Studio 2017\Projects\Common.Runtime.Serialization\Common.Runtime.Serialization\Xml\XObjectSerializer.cs:line 30
+   at Common.Runtime.Serialization.UnitTests.Xml.XObjectSerializerTest.SouldConvertFromObject() in C:\Users\ekonwlo\Documents\Visual Studio 2017\Projects\Common.Runtime.Serialization\@UnitTests\Common.Runtime.Serialization\Xml\XObjectSerializerTest.cs:line 47</pre></div>
+    <br />
+    <h2>
+      <a id="all" />All tests
+        </h2>
+    <h5>Click test class name to expand/collapse test details</h5>
+    <h3>
+      <span class="timing">0.517s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0EFF')" ondblclick="ToggleClass('classID0EFF')">
+        <span class="success">✔</span>
+               Common.Runtime.Serialization.UnitTests.Json.JArraySerializerTest
+               <span class="testcount">
+                (3 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0EFF">
+      <div class="row">
+        <span class="timing">0.0051583s
+        </span>
+        <span class="success">✔</span>
+       Should convert jarray to string array<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.5092308s
+        </span>
+        <span class="success">✔</span>
+       Should convert string array to jarray<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0030647s
+        </span>
+        <span class="success">✔</span>
+       Should create instance<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.433s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0E5F')" ondblclick="ToggleClass('classID0E5F')">
+        <span class="success">✔</span>
+               Common.Runtime.Serialization.UnitTests.Json.JPrimitiveSerializerTest
+               <span class="testcount">
+                (18 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0E5F">
+      <div class="row">
+        <span class="timing">0.0005237s
+        </span>
+        <span class="success">✔</span>
+       Should convert bool from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0002367s
+        </span>
+        <span class="success">✔</span>
+       Should convert byte from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0003301s
+        </span>
+        <span class="success">✔</span>
+       Should convert double from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.4148458s
+        </span>
+        <span class="success">✔</span>
+       Should convert float from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0002154s
+        </span>
+        <span class="success">✔</span>
+       Should convert int from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0002183s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to bool<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0002101s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to byte<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0002034s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to double<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0002261s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to float<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0002225s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to int<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0007208s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to long<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0002144s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to short<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0002098s
+        </span>
+        <span class="success">✔</span>
+       Should convert jproperty to string<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0002151s
+        </span>
+        <span class="success">✔</span>
+       Should convert long from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0005304s
+        </span>
+        <span class="success">✔</span>
+       Should convert short from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.000214s
+        </span>
+        <span class="success">✔</span>
+       Should convert string from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0004217s
+        </span>
+        <span class="success">✔</span>
+       Should create instance<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0133333s
+        </span>
+        <span class="success">✔</span>
+       Should throw on invalid arguments<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.081s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0EZ')" ondblclick="ToggleClass('classID0EZ')">
+        <span class="success">✔</span>
+               Common.Runtime.Serialization.UnitTests.UtilsTest
+               <span class="testcount">
+                (3 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0EZ">
+      <div class="row">
+        <span class="timing">0.010327s
+        </span>
+        <span class="success">✔</span>
+       Should get array base type<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0005711s
+        </span>
+        <span class="success">✔</span>
+       Should throw on get array base type when argument is not an array<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0698898s
+        </span>
+        <span class="success">✔</span>
+       Should throw on get array base type when argument is null<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.565s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0ESBAC')" ondblclick="ToggleClass('classID0ESBAC')">
+        <span class="failure">✘</span>
+               Common.Runtime.Serialization.UnitTests.Xml.XObjectSerializerTest
+               <span class="testcount">
+                (3 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" id="classID0ESBAC">
+      <div class="row">
+        <span class="timing">0.0044477s
+        </span>
+        <span class="failure">✘</span>
+       Should convert from object<br clear="all" /><pre>System.ArgumentException : '' is an invalid expanded name.</pre><pre>   at System.Xml.Linq.XName.Get(String expandedName)
+   at System.Xml.Linq.XName.op_Implicit(String expandedName)
+   at Common.Runtime.Serialization.Xml.XObjectSerializer.ConvertFromObject(Object item) in C:\Users\ekonwlo\Documents\Visual Studio 2017\Projects\Common.Runtime.Serialization\Common.Runtime.Serialization\Xml\XObjectSerializer.cs:line 30
+   at Common.Runtime.Serialization.UnitTests.Xml.XObjectSerializerTest.SouldConvertFromObject() in C:\Users\ekonwlo\Documents\Visual Studio 2017\Projects\Common.Runtime.Serialization\@UnitTests\Common.Runtime.Serialization\Xml\XObjectSerializerTest.cs:line 47</pre></div>
+      <div class="altrow">
+        <span class="timing">0.5593229s
+        </span>
+        <span class="success">✔</span>
+       Should create instance<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0009732s
+        </span>
+        <span class="success">✔</span>
+       Should throw on invalid arguments<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.533s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0ESB')" ondblclick="ToggleClass('classID0ESB')">
+        <span class="success">✔</span>
+               Common.Runtime.Serialization.UnitTests.Xml.XPrimitiveSerializerTest
+               <span class="testcount">
+                (18 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0ESB">
+      <div class="row">
+        <span class="timing">0.0006029s
+        </span>
+        <span class="success">✔</span>
+       Should convert bool from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0014236s
+        </span>
+        <span class="success">✔</span>
+       Should convert byte from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.000724s
+        </span>
+        <span class="success">✔</span>
+       Should convert double from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0015475s
+        </span>
+        <span class="success">✔</span>
+       Should convert float from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0006574s
+        </span>
+        <span class="success">✔</span>
+       Should convert int from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.012387s
+        </span>
+        <span class="success">✔</span>
+       Should convert long from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0014229s
+        </span>
+        <span class="success">✔</span>
+       Should convert short from object<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0005488s
+        </span>
+        <span class="success">✔</span>
+       Should convert string from object<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0011507s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to bool<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0004565s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to byte<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0011844s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to double<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0003746s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to float<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.5034598s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to int<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0022546s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to long<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0003711s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to short<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0003513s
+        </span>
+        <span class="success">✔</span>
+       Should convert xelement to string<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0019555s
+        </span>
+        <span class="success">✔</span>
+       Should create instance<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0019916s
+        </span>
+        <span class="success">✔</span>
+       Should throw on invalid arguments<br clear="all" /></div>
+    </div>
+  </body>
+</html>
