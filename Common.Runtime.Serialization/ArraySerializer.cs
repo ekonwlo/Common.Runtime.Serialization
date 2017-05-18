@@ -14,23 +14,14 @@ namespace Common.Runtime.Serialization
         //private readonly Serializer<T>[] _converters;
         private readonly int _dimiensions;
         private readonly Type _baseType;
-        private readonly ISerializer<T> _serializer;
         private readonly Dictionary<int, MethodInfo> _getElementsMethods;
         private readonly Dictionary<int, MethodInfo> _setElementsMethods;
         private readonly MethodInfo _getGenericElementMethod;
         private readonly MethodInfo _setGenericElementMethod;
         private readonly Type _nullableType;
 
-        public ISerializer<T> Converter
-        {
-            get { return _serializer; }
-        }
-
-        //public IEnumerable<Serializer<T>> Converters
-        //{
-        //    get { return _converters; }
-        //}
-
+        public ISerializer<T> BaseSerializer { get; private set; }
+        
         public int Dimiensions
         {
             get { return _dimiensions; }
@@ -46,12 +37,11 @@ namespace Common.Runtime.Serialization
             get { return _nullableType; }
         }
 
-        protected ArraySerializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer)
-            : base(type, property, attribute, format, transformator) 
+        protected ArraySerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer)
+            : base(factory, type, property, attribute, format, transformator) 
         {
             _dimiensions = 1;
             _baseType = type.GetElementType();
-
 
             MethodInfo getElementsMethod = typeof(ArraySerializer<T>).GetMethod("GetElements", BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[] { typeof(T), typeof(int) }, null);
             _getElementsMethods = new Dictionary<int, MethodInfo>();
@@ -73,7 +63,7 @@ namespace Common.Runtime.Serialization
             _getElementsMethods.Add(_dimiensions, getElementsMethod.MakeGenericMethod(_baseType));
 
             //_serializer = (Serializer<T>) SerializerFactory<T>.CreateConverter(_baseType, property, attribute, format, null);
-	        _serializer = serializer;
+	        BaseSerializer = serializer;
 			//_serializer.Transformator = transformator;
             
            _nullableType = Nullable.GetUnderlyingType(BaseType);

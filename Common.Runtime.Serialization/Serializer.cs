@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 using Common.Reflection;
 
@@ -13,13 +10,8 @@ namespace Common.Runtime.Serialization
     public abstract class Serializer<T>
         : BaseConverter, ISerializer<T>
     {
-
-        //private ConstructorInfo _constructor;
-        private readonly Type _type;
-        private readonly PropertyInfo _property;
-		private readonly PropertySetterDelegate _setter;
+        private readonly PropertySetterDelegate _setter;
 		private readonly PropertyGetterDelegate _getter;
-        private readonly ISerializableProperty _attribute;
         private readonly string _format;
         private Transformator _transformator;
 
@@ -28,14 +20,14 @@ namespace Common.Runtime.Serialization
             get { return this; }
         }
 
-        public Type Type
-        {
-            get { return _type; }
-        }
+        public SerializerFactory<T> Factory { get; private set; }
+        public Type Type { get; private set; }
+        public ISerializableProperty Attribute { get; private set; }
+        public PropertyInfo Property { get; private set; }
 
         public override string Name
         {
-            get { return _attribute.Name; }
+            get { return Attribute.Name; }
         }
 
         public Transformator Transformator
@@ -44,26 +36,21 @@ namespace Common.Runtime.Serialization
             set { _transformator = value; }
         }
         
-        internal PropertyInfo Property
+        internal Serializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
         {
-            get { return _property; }
-        }
+            if (factory == null) throw new ArgumentNullException("factory", "Factory is required");
+            if (type == null) throw new ArgumentNullException("type", "Type is required");
+            if (property == null) throw new ArgumentNullException("property", "Property is required");
+            if (attribute == null) throw new ArgumentNullException("attribute", "Attribute is required");
 
-        public override ISerializableProperty Attribute
-        {
-            get { return _attribute; }
-        }
-
-        internal Serializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
-        {
-            _type = type;
-            _property = property;
-			_setter = property.CreateSetterDelegate();
-			_getter = property.CreateGetterDelegate();
-            _attribute = attribute;
+            Factory = factory;
+            Type = type;
+            Property = property;
+			Attribute = attribute;
+            _setter = Property.CreateSetterDelegate();
+			_getter = Property.CreateGetterDelegate();
             _format = format;
             _transformator = transformator;
-
         }
 
         private object GetPropertyRawValue(object item)
@@ -75,8 +62,8 @@ namespace Common.Runtime.Serialization
         {
 			object value = _getter.Invoke(item);
             
-            if (value == null && _attribute.Mandatory)
-                throw new ArgumentNullException(_property.Name);
+            if (value == null && Attribute.Mandatory)
+                throw new ArgumentNullException(Property.Name);
 
             if (_transformator != null)
                 return _transformator.Transform(value);
@@ -97,7 +84,7 @@ namespace Common.Runtime.Serialization
 
         public virtual void SetPropertyValue(object item, object value)
         {
-            if (value == null & !_attribute.Mandatory)
+            if (value == null & !Attribute.Mandatory)
                 return;
 
             if (_transformator != null)

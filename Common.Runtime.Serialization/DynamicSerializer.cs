@@ -28,8 +28,8 @@ namespace Common.Runtime.Serialization
             }
         }
 
-        protected DynamicSerializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers)
-            : base(type, property, attribute, format, null)
+        protected DynamicSerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers)
+            : base(factory, type, property, attribute, format, null)
         {
 	        _selector = selector;
 			_serializers = serializers;

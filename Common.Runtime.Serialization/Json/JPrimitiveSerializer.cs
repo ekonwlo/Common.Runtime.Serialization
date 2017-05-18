@@ -13,37 +13,49 @@ namespace Common.Runtime.Serialization.Json
     sealed class JPrimitiveSerializer
         : PrimitiveSerializer<JToken>
     {
-        private MethodInfo _getGenericElementMethod;
-
-        internal JPrimitiveSerializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
-            : base(type, property, attribute, format, transformator ) 
-        {
-            MethodInfo getElementMethod = typeof(JPrimitiveSerializer).GetMethod("GetPrimitiveElement", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(JToken) }, null);
-            _getGenericElementMethod = getElementMethod.MakeGenericMethod(new Type[] { type });
-        }
+        internal JPrimitiveSerializer(SerializerFactory<JToken> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+            : base(factory, type, property, attribute, format, transformator ) 
+        { }
 
         public override JToken ConvertFromObject(object item)
         {
-            return (JToken)new JProperty(Attribute.Name, new JValue(GetPropertyValue(item)));
+            return new JProperty(Attribute.Name, new JValue(GetPropertyValue(item)));
         }
 
         public override object ConvertToObject(JToken item)
         {
-            if (item.Type == JTokenType.Null)
+            if (item == null)
+            {
+                if (Attribute.Mandatory) throw new ArgumentNullException("item", "Item is mandatory");
                 return null;
+            }
 
-            return _getGenericElementMethod.Invoke(this, new JToken[] { item });
-            //return _getGenericElementMethod.Invoke(this, new JToken[] { item });
+            switch (item.Type)
+            {
+                case JTokenType.Null:
+                    return null;
+                case JTokenType.Property:
+                    return ConvertToObject(item as JProperty);                
+                default:
+                    return ConvertToObject((JValue)item); //TODO: switch case all types
+            }
+        }
+        
+        private object ConvertToObject(JProperty item)
+        {
+            if (item.Name != Attribute.Name) throw new ArgumentException(string.Format("Item is not a '{0}' element", Attribute.Name), "item");
+
+            return ConvertToObject(item.Value as JValue);
         }
 
-        private T GetPrimitiveElement<T>(JToken item)
+        private object ConvertToObject(JValue item)
         {
-            return (T) Convert.ChangeType(((JValue)item).Value, typeof(T));
+            return Convert.ChangeType(item.Value, Type);
         }
 
         public override object GetElementValue(JToken item)
         {
-            return Convert.ChangeType(((JValue)item).Value, PrimitiveType);
+            return Convert.ChangeType(((JValue)item).Value, Type);
         }
 
         public override JToken SetElementValue(object item)

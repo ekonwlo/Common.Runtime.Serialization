@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
-
-namespace Common.Runtime.Serialization
+﻿namespace Common.Runtime.Serialization
 {
     using Attributes;
 
@@ -14,7 +8,7 @@ namespace Common.Runtime.Serialization
        
 		public abstract string ToString(object item);
         public abstract object FromString(string text);
-        public abstract ISerializableProperty Attribute { get; }
+        //public abstract ISerializableProperty Attribute { get; private set; }
 
         public abstract string GetPropertyString(object item);
         public abstract void SetPropertyString(object item, string value);

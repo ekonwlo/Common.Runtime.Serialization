@@ -19,8 +19,8 @@ namespace Common.Runtime.Serialization
             get { return _type; }
         }
 
-        protected NullableSerializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
-            : base(type, property, attribute, format, transformator) 
+        protected NullableSerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+            : base(factory, type, property, attribute, format, transformator) 
         {
             _type = Nullable.GetUnderlyingType(type);
         }

@@ -11,31 +11,31 @@ namespace Common.Runtime.Serialization
     public abstract class SerializerFactory<T>
 		: ISerializerFactory<T>
     {
-
         private static object _sync = new object();
 
-		private delegate ISerializer<T>[] CreateDelegate<U>(Type type) where U : ISerializableProperty;
-		private delegate ISerializer<T> CreateConverterDelegate<U>(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator) where U : ISerializableProperty;
+        public delegate ISerializer<T>[] CreateSerializersDelegate<U>(Type type) where U : ISerializableProperty;
 
+        [Obsolete]
+        private delegate ISerializer<T>[] CreateDelegate<U>(Type type) where U : ISerializableProperty;
+        [Obsolete]
         private static CreateDelegate<ISerializableProperty> CreateCallback { get; set; }
-        private static CreateConverterDelegate<ISerializableProperty> CreateConverterCallback { get; set; }
 
         private static readonly  ConvertersHash<T> _hash;
 
         static SerializerFactory()
         {
             _hash = new ConvertersHash<T>();
-
         }
-
+        
+        [Obsolete]
 		internal static ISerializer<T>[] Create(Type type)
         {
             return CreateCallback(type);
         }
 
 		public abstract ISerializer<T>[] Create<U>(Type type) where U : ISerializableProperty;
-
-		protected ISerializer<T>[] CreateConverters<U>(Type type) where U : ISerializableProperty
+        
+		internal protected ISerializer<T>[] CreateSerializsers<U>(Type type) where U : ISerializableProperty
         {
             lock (_sync) // prevents from changing callback while creating converters
             {
@@ -48,11 +48,11 @@ namespace Common.Runtime.Serialization
             }
         }
 
-		protected ISerializer<T>[] CreateConverters<U>(Type type, string version, bool @explicit = false) where U : ISerializableProperty
+		internal protected ISerializer<T>[] CreateSerializsers<U>(Type type, string version, bool @explicit = false) where U : ISerializableProperty
 		{
 			if (version == null)
 			{
-				return CreateConverters<U>(type);
+				return CreateSerializsers<U>(type);
 			}
 			else
 			{
@@ -74,14 +74,9 @@ namespace Common.Runtime.Serialization
 		protected abstract ISerializer<T> CreatePrimitiveConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator); //where U : RestAttribute;
 		protected abstract ISerializer<T> CreateNullableConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator); //where U : RestAttribute;
 		public abstract ISerializer<T> CreateArrayConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer); //where U : RestAttribute;
-		public abstract ISerializer<T> CreateObjectConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, IEnumerable<ISerializer<T>> serializers); //where U : RestAttribute;
-		protected abstract ISerializer<T> CreateDynamicConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers); //where U : RestAttribute;
-
-		internal static ISerializer<T> CreateConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
-        {
-            return CreateConverterCallback(type, property, attribute, format, transformator);
-        }
-
+        protected abstract ISerializer<T> CreateObjectConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, CreateSerializersDelegate<ISerializableProperty> createSerializersCallback); //where U : RestAttribute;
+        protected abstract ISerializer<T> CreateDynamicConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers); //where U : RestAttribute;
+        
 		internal virtual ISerializer<T> CreateConverter<U>(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator) where U : ISerializableProperty
         {
             if (type.IsClass && !( type == typeof(string) || type.IsArray ))
@@ -106,17 +101,15 @@ namespace Common.Runtime.Serialization
             }
             else if (type.IsArray)
             {
-				ISerializer<T> serializer = CreateConverter(Utils.GetBaseArrayType(type), property, attribute, format, null);
-				//serializer.Transformator = transformator;
-            
+				ISerializer<T> serializer = CreateConverter<U>(Utils.GetArrayBaseType(type), property, attribute, format, null);
+				
                 return CreateArrayConverter(type, property, attribute, format, transformator, serializer);
             }
             else if (type.IsClass)
-            {
-                
+            {                
                 ConstructorInfo constructor = type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
-				IEnumerable<ISerializer<T>> serializers = Create(type);
-				return CreateObjectConverter(type, property, attribute, format, transformator, constructor, serializers);
+				IEnumerable<ISerializer<T>> serializers = CreateSerializsers<U>(type);
+                return CreateObjectConverter(type, property, attribute, format, transformator, constructor, CreateSerializsers<U>);
             }
 
             return null;
@@ -137,14 +130,14 @@ namespace Common.Runtime.Serialization
 
 					foreach (Transformator transformator in transformators)
 					{
-						serializers.Add(transformator.OutputType, CreateConverter(propertyType, prop, attr, null, transformator));
+						serializers.Add(transformator.OutputType, CreateConverter<U>(propertyType, prop, attr, null, transformator));
 					}
 
 					if (selector != null)
 					{
 						foreach (Type t in selector.Types)
 						{
-							serializers.Add(t, CreateConverter(t, prop, attr, null, null));
+							serializers.Add(t, CreateConverter<U>(t, prop, attr, null, null));
 						}
 					}
 
@@ -181,14 +174,14 @@ namespace Common.Runtime.Serialization
 
 						foreach (Transformator transformator in transformators)
 						{
-							serializers.Add(transformator.OutputType, CreateConverter(propertyType, prop, attr, null, transformator));
+							serializers.Add(transformator.OutputType, CreateConverter<U>(propertyType, prop, attr, null, transformator));
 						}
 
 						if (selector != null)
 						{
 							foreach (Type t in selector.Types)
 							{
-								serializers.Add(t, CreateConverter(t, prop, attr, null, null));
+								serializers.Add(t, CreateConverter<U>(t, prop, attr, null, null));
 							}
 						}
 
@@ -258,16 +251,16 @@ namespace Common.Runtime.Serialization
             return new Transformator[] { };
         }
 
+        [Obsolete]
         public static void SetDefault<U>(SerializerFactory<T> factory) where U : ISerializableProperty
         {
             lock (_sync) // prevents from changing callback while creating converters
             {
                 CreateCallback = factory.Create<U>;
-                CreateConverterCallback = factory.CreateConverter<U>;
             }
         }
 
-        internal static void AddConverter(Serializer<T> serializer)
+        internal void Add(Serializer<T> serializer)
         {
             _hash.Add(serializer);
         }

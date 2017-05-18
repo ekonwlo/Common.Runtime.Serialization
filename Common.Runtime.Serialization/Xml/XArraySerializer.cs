@@ -13,8 +13,8 @@ namespace Common.Runtime.Serialization.Xml
     sealed class XArraySerializer
         : ArraySerializer<XObject>
     {
-		internal XArraySerializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<XObject> serializer)
-            : base(type, property, attribute, format, transformator, serializer) 
+		internal XArraySerializer(SerializerFactory<XObject> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<XObject> serializer)
+            : base(factory, type, property, attribute, format, transformator, serializer) 
         { }   
 
         public override XObject ConvertFromObject(object item)

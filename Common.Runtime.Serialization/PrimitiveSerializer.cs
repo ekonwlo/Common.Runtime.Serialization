@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 namespace Common.Runtime.Serialization
@@ -13,22 +10,21 @@ namespace Common.Runtime.Serialization
          : Serializer<T>
     {
 
-        private readonly Type _type;
-        //private MethodInfo _getGenericElementMethod;
+        //private readonly Type _type;
+        
+        //public Type PrimitiveType
+        //{
+        //    get { return _type; }
+        //}
 
-        public Type PrimitiveType
+        protected PrimitiveSerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+            : base(factory, type, property, attribute, format, transformator) 
         {
-            get { return _type; }
-        }
-
-        protected PrimitiveSerializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
-            : base(type, property, attribute, format, transformator) 
-        {
-            _type = type;
-
-			//MethodInfo getElementMethod = typeof(PrimitiveSerializer<T>).GetMethod("GetValue", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(object) }, null);
-			//_getGenericElementMethod = getElementMethod.MakeGenericMethod(new Type[] { type });
-        }
+            if (!type.IsPrimitive && typeof(string) != type)
+            {
+                throw new ArgumentException("Type is neither string nor primitive type", "type");
+            }
+		}
 
         protected U GetValue<U>(object value)
         {

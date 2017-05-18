@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 using System.Reflection;
 
@@ -102,7 +99,9 @@ namespace Common.Runtime.Serialization
         {
             object[] hash = GetHash(serializer);
 
-            _hash.Rows.Add(new object[] {
+            if (!_hash.Rows.Contains(hash))
+            {
+                _hash.Rows.Add(new object[] {
                 hash[0],
                 hash[1],
                 hash[2],
@@ -114,8 +113,8 @@ namespace Common.Runtime.Serialization
                 //hash[8],
                 //hash[9],
                 serializer
-            });
+                });
+            }
         }
-
     }
 }

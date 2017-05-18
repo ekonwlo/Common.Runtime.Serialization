@@ -16,32 +16,32 @@ namespace Common.Runtime.Serialization.Json
 
 		public override ISerializer<JToken>[] Create<U>(Type type)
         {
-            return CreateConverters<U>(type);
+            return CreateSerializsers<U>(type);
         }
 
 		protected override ISerializer<JToken> CreatePrimitiveConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
         {
-            return new JPrimitiveSerializer(type, property, attribute, format, transformator);
+            return new JPrimitiveSerializer(this, type, property, attribute, format, transformator);
         }
 
 		public override ISerializer<JToken> CreateArrayConverter(Type baseType, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<JToken> serializer)
         {
-            return new JArraySerializer(baseType, property, attribute, format, transformator, serializer);
+            return new JArraySerializer(this, baseType, property, attribute, format, transformator, serializer);
+        }
+        
+        protected override ISerializer<JToken> CreateObjectConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, CreateSerializersDelegate<ISerializableProperty> createSerializersCallback)
+        {
+            return new JObjectSerializer(this, type, property, attribute, format, transformator, constructor, createSerializersCallback);
         }
 
-		public override ISerializer<JToken> CreateObjectConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, IEnumerable<ISerializer<JToken>> serializers)
+        protected override ISerializer<JToken> CreateDynamicConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<JToken>> serializers)
         {
-            return new JObjectSerializer(type, property, attribute, format, transformator, constructor, serializers);
-        }
-
-		protected override ISerializer<JToken> CreateDynamicConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<JToken>> serializers)
-        {
-            return new JDynamicSerializer(type, property, attribute, format, selector, serializers);
+            return new JDynamicSerializer(this, type, property, attribute, format, selector, serializers);
         }
 
 		protected override ISerializer<JToken> CreateNullableConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
         {
-            return new JNullableSerializer(type, property, attribute, format, transformator);
+            return new JNullableSerializer(this, type, property, attribute, format, transformator);
         }
     }
 }

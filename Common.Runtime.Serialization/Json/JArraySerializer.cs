@@ -13,14 +13,27 @@ namespace Common.Runtime.Serialization.Json
     sealed class JArraySerializer
         : ArraySerializer<JToken>
     {
-		internal JArraySerializer(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<JToken> serializer)
-            : base(type, property, attribute, format, transformator, serializer) 
+		internal JArraySerializer(SerializerFactory<JToken> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<JToken> serializer)
+            : base(factory, type, property, attribute, format, transformator, serializer) 
         { }
 
         public override JToken ConvertFromObject(object item)
         {
-            JToken content = (JToken) SetElementsMethod(1).Invoke(this, new object[] { GetPropertyValue(item), 1 });
-            JToken token = new JProperty(Name, content);
+            if (item == null)
+            {
+                if (Attribute.Mandatory) throw new ArgumentNullException("item", "Item is mandatory");
+                return JValue.CreateNull();
+            }
+
+            JToken array;
+            if (item.GetType().IsArray)
+            {
+                array = (JToken)SetElementsMethod(1).Invoke(this, new object[] { item, 1 });
+                return array;
+            }
+
+            array = (JToken) SetElementsMethod(1).Invoke(this, new object[] { GetPropertyValue(item), 1 });
+            JToken token = new JProperty(Name, array);
 
             return token;
         }
@@ -31,7 +44,7 @@ namespace Common.Runtime.Serialization.Json
             if (Dimiensions == dimension)
             {
                 return new JArray((from item in items
-                                   select Converter.SetElementValue(item)).ToArray());
+                                   select BaseSerializer.SetElementValue(item)).ToArray());
             }
 
             JToken array = new JArray((from item in items
@@ -44,7 +57,7 @@ namespace Common.Runtime.Serialization.Json
             if (item == null)
                 return null;
 
-            object elements = (object) GetElementsMethod(1).Invoke(this, new object[] { item, 1 });
+            object elements = GetElementsMethod(1).Invoke(this, new object[] { item, 1 });
 
             return elements;
         }
@@ -55,14 +68,14 @@ namespace Common.Runtime.Serialization.Json
             if (Dimiensions == dimension)
             {
                 T[] values = (from JToken child in item.Children()
-                              select (T) Converter.GetElementValue(child)).ToArray();
-                return (T[]) values;
+                              select (T) BaseSerializer.GetElementValue(child)).ToArray();
+                return values;
             }
 
-            object elements = (from JToken child in item.Children()
-                               select (T) GetElementsMethod(dimension + 1).Invoke(this, new object[] { child, dimension + 1 })).ToArray();
+            T[] elements = (from JToken child in item.Children()
+                            select (T) GetElementsMethod(dimension + 1).Invoke(this, new object[] { child, dimension + 1 })).ToArray();
 
-            return (T[])elements;
+            return elements;
         }
 
         public sealed override object FromString(string text)
