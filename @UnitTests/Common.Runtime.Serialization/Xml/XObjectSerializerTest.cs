@@ -4,7 +4,6 @@ using System.Reflection;
 using NSubstitute;
 using Xunit;
 
-
 namespace Common.Runtime.Serialization.UnitTests.Xml
 {
     using Attributes;
@@ -19,6 +18,11 @@ namespace Common.Runtime.Serialization.UnitTests.Xml
         private static readonly ISerializableProperty STRING_ATTR = Substitute.For<ISerializableProperty>();
         private static readonly ConstructorInfo CONSTRUCTOR = TEST_TYPE.GetConstructor(Type.EmptyTypes);
         
+        static XObjectSerializerTest()
+        {
+            STRING_ATTR.Name.Returns(TestClass.STRING_ATTR_NAME);
+        }
+
         [Fact(DisplayName = "Should create instance")]
         public void ShouldCreateInstance()
         {
@@ -31,10 +35,10 @@ namespace Common.Runtime.Serialization.UnitTests.Xml
         [Fact(DisplayName = "Should throw on invalid arguments")]
         public void ShouldThrowOnInvalidArguments()
         {
-            Assert.Throws(typeof(ArgumentNullException), () => { new XObjectSerializer(null, TEST_TYPE, STRING_PROP, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
-            Assert.Throws(typeof(ArgumentNullException), () => { new XObjectSerializer(FACTORY, null, STRING_PROP, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
-            Assert.Throws(typeof(ArgumentNullException), () => { new XObjectSerializer(FACTORY, TEST_TYPE, null, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
-            Assert.Throws(typeof(ArgumentNullException), () => { new XObjectSerializer(FACTORY, TEST_TYPE, STRING_PROP, null, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
+            Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(null, TEST_TYPE, STRING_PROP, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
+            Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(FACTORY, null, STRING_PROP, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
+            Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(FACTORY, TEST_TYPE, null, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
+            Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(FACTORY, TEST_TYPE, STRING_PROP, null, null, null, CONSTRUCTOR, FACTORY.CreateSerializsers<TestPropertyAttribute>); });
         }
 
         [Fact(DisplayName = "Should convert from object")]
@@ -46,9 +50,7 @@ namespace Common.Runtime.Serialization.UnitTests.Xml
 
             var converted = instance.ConvertFromObject(o);
 
-
-
-
+            Assert.NotNull(converted);
         }
 
     }

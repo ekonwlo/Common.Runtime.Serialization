@@ -15,8 +15,8 @@
     <copyright>Copyright 2016</copyright>
     <tags>Serialization Conversion XML JSON</tags>
     <dependencies>
-      <dependency id="Common.Reflection" version="0.9.0.2"/>
-      <dependency id="Newtonsoft.Json" version="9.0.1"/>
+      <dependency id="Common.Reflection" version="0.9.0.3"/>
+      <dependency id="Newtonsoft.Json" version="10.0.2"/>
     </dependencies>
   </metadata>
     <files>
@@ -36,5 +36,7 @@
       <file src="bin\Release\lib\net461\Common.Runtime.Serialization.pdb" target="lib\net461\Common.Runtime.Serialization.pdb" />
       <file src="bin\Release\lib\net462\Common.Runtime.Serialization.dll" target="lib\net462\Common.Runtime.Serialization.dll" />
       <file src="bin\Release\lib\net462\Common.Runtime.Serialization.pdb" target="lib\net462\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Release\lib\net47\Common.Runtime.Serialization.dll" target="lib\net47\Common.Runtime.Serialization.dll" />
+      <file src="bin\Release\lib\net47\Common.Runtime.Serialization.pdb" target="lib\net47\Common.Runtime.Serialization.pdb" />
     </files>
 </package>

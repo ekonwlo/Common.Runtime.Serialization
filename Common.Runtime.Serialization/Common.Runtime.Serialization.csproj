@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Common.Runtime.Serialization</RootNamespace>
     <AssemblyName>Common.Runtime.Serialization</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -50,11 +50,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v3.5'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net35\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net35\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
-	<Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net35\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -66,11 +66,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.0'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net40\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net40\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
-	<Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -82,8 +82,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.5'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net45\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net45\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -98,8 +98,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.5.1'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net451\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net451\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -114,8 +114,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.5.2'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net452\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net452\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -130,8 +130,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.6'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net46\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net46\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -146,8 +146,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.6.1'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net461\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net461\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -162,8 +162,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.6.2'">
-    <Reference Include="Common.Reflection, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Common.Reflection.0.9.0.2\lib\net462\Common.Reflection.dll</HintPath>
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net462\Common.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFrameworkVersion)' == 'v4.7'">
+    <Reference Include="Common.Reflection, Version=0.9.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Reflection.0.9.0.4\lib\net47\Common.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -215,10 +231,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)*.dll" "C:\Users\ekonwlo\Documents\Visual Studio 2010\Projects\Common.Servers\Libraries\*.dll"
-copy /Y "$(TargetDir)*.dll" "C:\Users\ekonwlo\Documents\Visual Studio 2010\Projects\Common.Database\Libraries\*.dll"
-copy /Y "$(TargetDir)*.dll" "C:\Users\ekonwlo\Documents\Visual Studio 2010\Projects\ConsistencyCheck\Libraries\*.dll"
-copy /Y "$(TargetDir)*.dll" "C:\Users\ekonwlo\Documents\Visual Studio 2010\Projects\Common.Net.REST\libs\*.dll"</PostBuildEvent>
+    <PostBuildEvent />
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
