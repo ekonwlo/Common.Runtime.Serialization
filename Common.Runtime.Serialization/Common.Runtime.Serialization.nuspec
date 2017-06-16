@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Common.Runtime.Serialization</id>
-    <version>0.9.0.4</version>
+    <version>0.9.0.5</version>
     <title>Common.Runtime.Serialization</title>
     <authors>foreplay</authors>
     <owners>n/a</owners>

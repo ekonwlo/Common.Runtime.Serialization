@@ -1,0 +1,1 @@
+The common library for serializing objects based on annotations
