@@ -1,6 +1,6 @@
 ﻿namespace Common.Runtime.Serialization.UnitTests
 {
-    class TestClass
+    public class TestClass
     {
         // ATTRIBUTES NAMES
         public const string OBJECT_ATTR_NAME = "object_param";

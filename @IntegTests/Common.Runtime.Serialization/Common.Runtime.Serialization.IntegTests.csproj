@@ -3,19 +3,98 @@
   <Import Project="..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="..\..\packages\xunit.runner.msbuild.2.2.0\build\net452\xunit.runner.msbuild.props" Condition="Exists('..\..\packages\xunit.runner.msbuild.2.2.0\build\net452\xunit.runner.msbuild.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{71E4FC03-1D8F-4234-9CE5-428EB05D9902}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <PropertyGroup>
     <RootNamespace>Common.Runtime.Serialization.IntegTests</RootNamespace>
     <AssemblyName>Common.Runtime.Serialization.IntegTests</AssemblyName>
+    <Framework Condition="'$(Framework)' == ''">.NETFramework.v4.6</Framework>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == ''">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <OutputTypeEx>library</OutputTypeEx>
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <ProjectGuid>{71E4FC03-1D8F-4234-9CE5-428EB05D9902}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.0'">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.5'">
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.5.1'">
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.5.2'">
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.6'">
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.6.1'">
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.6.2'">
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETFramework.v4.7'">
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETCoreApp.v1.0'">
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETCoreApp.v1.1'">
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETCoreApp.v2.0'">
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.0'">
+    <TargetFramework>netstandard1.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.1'">
+    <TargetFramework>netstandard1.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.2'">
+    <TargetFramework>netstandard1.2</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.3'">
+    <TargetFramework>netstandard1.3</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.4'">
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.5'">
+    <TargetFramework>netstandard1.5</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.6'">
+    <TargetFramework>netstandard1.6</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Framework.StartsWith('.NETFramework'))">
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <ProjectGuid>{02DA4741-CFD4-44F5-828A-1E4CF829EBF0}</ProjectGuid>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Framework.StartsWith('.NETCoreApp'))">
+    <RuntimeIdentifiers>win7-x64;ubuntu.14.04-x64;osx.10.10-x64</RuntimeIdentifiers>
+    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Framework.StartsWith('.NETStandard'))">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,34 +113,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NSubstitute, Version=2.0.3.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NSubstitute.2.0.3\lib\net45\NSubstitute.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.assert.2.2.0\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.extensibility.core.2.2.0\lib\netstandard1.1\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.extensibility.execution.2.2.0\lib\net452\xunit.execution.desktop.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  <Import Project="Common.Runtime.Serialization.IntegTests$(Framework).conf" />
   <ItemGroup>
     <Compile Include="Attributes\TestPropertyAttribute.cs" />
     <Compile Include="Json\JArraySerializerTest.cs" />
@@ -73,18 +125,19 @@
     <Compile Include="TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common.Runtime.Serialization\Common.Runtime.Serialization.csproj">
-      <Project>{02da4741-cfd4-44f5-828a-1e4cf829ebf0}</Project>
-      <Name>Common.Runtime.Serialization</Name>
-    </ProjectReference>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common.Runtime.Serialization\Common.Runtime.Serialization.csproj">
+      <Project>{d0eb3ce6-50b7-457e-9ff0-6a4ff9d16dcb}</Project>
+      <Name>Common.Runtime.Serialization</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -94,7 +147,6 @@
   </Target>
   <UsingTask AssemblyFile="..\..\packages\xunit.runner.msbuild.2.2.0\build\net452\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
   <Target Name="IntegTests">
-    <xunit Assemblies="..\..\@IntegTests\Common.Runtime.Serialization\bin\Release\Common.Runtime.Serialization.IntegTests.dll" IgnoreFailures="true"
-           NUnit="..\..\@UnitTests\Common.Runtime.Serialization\ninteg-tests.xml" />
+    <xunit Assemblies="..\..\@IntegTests\Common.Runtime.Serialization\bin\Release\Common.Runtime.Serialization.IntegTests.dll" IgnoreFailures="true" NUnit="..\..\@UnitTests\Common.Runtime.Serialization\ninteg-tests.xml" />
   </Target>
 </Project>

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Common.Runtime.Serialization</id>
-    <version>0.9.0.5</version>
+    <version>0.9.0.6</version>
     <title>Common.Runtime.Serialization</title>
     <authors>foreplay</authors>
     <owners>n/a</owners>
@@ -15,28 +15,28 @@
     <copyright>Copyright 2016</copyright>
     <tags>Serialization Conversion XML JSON</tags>
     <dependencies>
-      <dependency id="Common.Reflection" version="0.9.0.3"/>
-      <dependency id="Newtonsoft.Json" version="10.0.2"/>
+      <dependency id="Common.Reflection" version="0.9.0.8"/>
+      <dependency id="Newtonsoft.Json" version="10.0.3"/>
     </dependencies>
   </metadata>
     <files>
-      <file src="bin\Release\lib\net35\Common.Runtime.Serialization.dll" target="lib\net35\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net35\Common.Runtime.Serialization.pdb" target="lib\net35\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net40\Common.Runtime.Serialization.dll" target="lib\net40\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net40\Common.Runtime.Serialization.pdb" target="lib\net40\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net45\Common.Runtime.Serialization.dll" target="lib\net45\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net45\Common.Runtime.Serialization.pdb" target="lib\net45\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net451\Common.Runtime.Serialization.dll" target="lib\net451\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net451\Common.Runtime.Serialization.pdb" target="lib\net451\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net452\Common.Runtime.Serialization.dll" target="lib\net452\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net452\Common.Runtime.Serialization.pdb" target="lib\net452\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net46\Common.Runtime.Serialization.dll" target="lib\net46\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net46\Common.Runtime.Serialization.pdb" target="lib\net46\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net461\Common.Runtime.Serialization.dll" target="lib\net461\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net461\Common.Runtime.Serialization.pdb" target="lib\net461\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net462\Common.Runtime.Serialization.dll" target="lib\net462\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net462\Common.Runtime.Serialization.pdb" target="lib\net462\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Release\lib\net47\Common.Runtime.Serialization.dll" target="lib\net47\Common.Runtime.Serialization.dll" />
-      <file src="bin\Release\lib\net47\Common.Runtime.Serialization.pdb" target="lib\net47\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net35\Common.Runtime.Serialization.dll" target="lib\net35\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net35\Common.Runtime.Serialization.pdb" target="lib\net35\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net40\Common.Runtime.Serialization.dll" target="lib\net40\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net40\Common.Runtime.Serialization.pdb" target="lib\net40\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net45\Common.Runtime.Serialization.dll" target="lib\net45\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net45\Common.Runtime.Serialization.pdb" target="lib\net45\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net451\Common.Runtime.Serialization.dll" target="lib\net451\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net451\Common.Runtime.Serialization.pdb" target="lib\net451\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net452\Common.Runtime.Serialization.dll" target="lib\net452\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net452\Common.Runtime.Serialization.pdb" target="lib\net452\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net46\Common.Runtime.Serialization.dll" target="lib\net46\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net46\Common.Runtime.Serialization.pdb" target="lib\net46\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net461\Common.Runtime.Serialization.dll" target="lib\net461\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net461\Common.Runtime.Serialization.pdb" target="lib\net461\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net462\Common.Runtime.Serialization.dll" target="lib\net462\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net462\Common.Runtime.Serialization.pdb" target="lib\net462\Common.Runtime.Serialization.pdb" />
+      <file src="bin\Publish\net47\Common.Runtime.Serialization.dll" target="lib\net47\Common.Runtime.Serialization.dll" />
+      <file src="bin\Publish\net47\Common.Runtime.Serialization.pdb" target="lib\net47\Common.Runtime.Serialization.pdb" />
     </files>
 </package>
