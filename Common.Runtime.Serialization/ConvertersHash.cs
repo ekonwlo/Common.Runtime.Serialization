@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Data;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace Common.Runtime.Serialization
 {
     using Attributes;
-    using Transformation;
 
-    internal class ConvertersHash<T>
+    internal sealed class ConvertersHash<T>
     {
-        private DataTable _hash;
+        private readonly IDictionary<Key, Serializer<T>> _serializers;
 
         internal Serializer<T> this[Type type
                                      , PropertyInfo property
@@ -20,100 +19,72 @@ namespace Common.Runtime.Serialization
         {
             get
             {
-                DataRow row =  _hash.Rows.Find(GetHash(type
-                                                    , property
-                                                    , attribute
-                                                    //, format
-                                                    //, transformator
-                                                    ));
-                if (row != null)
-                    return (Serializer<T>) row[4];
-
+                Key key = new Key(type, property, attribute);
+                if (_serializers.ContainsKey(key))
+                {
+                    return _serializers[key];
+                }
                 return null;
             }
         }
 
         internal ConvertersHash()
         {
-
-            _hash = new DataTable();
-
-            _hash.Columns.AddRange(new DataColumn[] {
-                new DataColumn("type", typeof(Guid)),
-                new DataColumn("declaringType", typeof(Guid)),
-                new DataColumn("property", typeof(string)),
-                new DataColumn("attribute", typeof(string)),
-                //new DataColumn("", typeof(Guid)),
-                //new DataColumn("", typeof(Guid)),
-                //new DataColumn("", typeof(Guid)),
-                //new DataColumn("", typeof(Guid)),
-                //new DataColumn("", typeof(Guid)),
-                //new DataColumn("", typeof(Guid)),
-                //new DataColumn("", typeof(Guid)),
-                new DataColumn("serializer", typeof(Serializer<T>))
-            });
-
-            _hash.Constraints.Add(new UniqueConstraint(new DataColumn[] {
-                _hash.Columns[0],
-                _hash.Columns[1],
-                _hash.Columns[2],
-                _hash.Columns[3]
-                //_hash.Columns[4],
-                //_hash.Columns[5],
-                //_hash.Columns[6],
-                //_hash.Columns[7],
-                //_hash.Columns[8],
-                //_hash.Columns[9]
-            }, true));
-
+            _serializers = new Dictionary<Key, Serializer<T>>();
         }
-
-        private object[] GetHash(Type type
-                               , PropertyInfo property
-                               , ISerializableProperty attribute
-                               //, string format
-                               //, Transformator transformator
-            )
-        {
-            object[] hash = new object[] {
-                type.GUID
-              , property.DeclaringType.GUID
-              , property.Name
-              , attribute.Name
-            };
-
-            return hash;
-        }
-
-        private object[] GetHash(Serializer<T> serializer)
-        {
-            return GetHash(serializer.Type
-                         , serializer.Property
-                         , serializer.Attribute
-                         //, null
-                         //, serializer.Transformator
-                         );
-        }
-
+        
         internal void Add(Serializer<T> serializer)
         {
-            object[] hash = GetHash(serializer);
+            Key key = new Key(serializer);
 
-            if (!_hash.Rows.Contains(hash))
+            if (!_serializers.ContainsKey(key))
             {
-                _hash.Rows.Add(new object[] {
-                hash[0],
-                hash[1],
-                hash[2],
-                hash[3],
-                //hash[4],
-                //hash[5],
-                //hash[6],
-                //hash[7],
-                //hash[8],
-                //hash[9],
-                serializer
-                });
+                _serializers.Add(key, serializer);
+            }
+        }
+
+        private class Key
+        {
+            Guid TypeGuid { get; set; }
+            Guid PropertyTypeGuid { get; set; }
+            String PropertyName { get; set; }
+            String AttributeName { get; set; }
+
+            public Key(Type type, PropertyInfo property, ISerializableProperty attribute)
+            {
+                TypeGuid = type.GUID;
+                PropertyTypeGuid = property.DeclaringType.GUID;
+                PropertyName = property.Name;
+                AttributeName = attribute.Name;
+            }
+
+            public Key(Serializer<T> serializer)
+                : this(serializer.Type, serializer.Property, serializer.Attribute)
+            { }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null) return false;
+                Key other = obj as Key;
+                if (other == null) return false;
+
+                if (TypeGuid == other.TypeGuid
+                    && PropertyTypeGuid == other.PropertyTypeGuid
+                    && PropertyName == other.PropertyName
+                    && AttributeName == other.AttributeName) return true;
+
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                int hash = 17;
+                hash = hash * 23 + TypeGuid.GetHashCode();
+                hash = hash * 23 + PropertyTypeGuid.GetHashCode();
+                hash = hash * 23 + PropertyName.GetHashCode();
+                hash = hash * 23 + AttributeName.GetHashCode();
+
+                return hash;
             }
         }
     }
