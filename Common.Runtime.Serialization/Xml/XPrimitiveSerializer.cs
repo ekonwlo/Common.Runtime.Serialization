@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using System.Reflection;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.Xml
 {
@@ -10,10 +11,9 @@ namespace Common.Runtime.Serialization.Xml
     sealed class XPrimitiveSerializer
         : PrimitiveSerializer<XObject>
     {
-        internal XPrimitiveSerializer(SerializerFactory<XObject> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+        internal XPrimitiveSerializer(SerializerFactory<XObject> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
             : base(factory, type, property, attribute, format, transformator )
         { }
-
 
         public override object ConvertToObject(XObject item)
         {

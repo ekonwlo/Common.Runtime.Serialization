@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization
 {
@@ -11,63 +11,58 @@ namespace Common.Runtime.Serialization
     public abstract class ArraySerializer<T>
         : Serializer<T>
     {
+        private static readonly TypeDefinition ARRAY_SERIALIZER_TYPE = TypeDefinition.Of<ArraySerializer<T>>();
+
         private readonly int _dimiensions;
-        private readonly Type _baseType;
         private readonly Dictionary<int, MethodInfo> _getElementsMethods;
         private readonly Dictionary<int, MethodInfo> _setElementsMethods;
-        
+
         public ISerializer<T> BaseSerializer { get; private set; }
-        
+
         public int Dimiensions
         {
             get { return _dimiensions; }
         }
 
-        public Type BaseType
-        {
-            get { return _baseType;}
-        }
-        
-        protected ArraySerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer)
-            : base(factory, type, property, attribute, format, transformator) 
+        public TypeDefinition ElementType { get; private set; }
+
+        protected ArraySerializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer)
+            : base(factory, type, property, attribute, format, transformator)
         {
             _dimiensions = 1;
-            _baseType = type.GetElementType();
+            ElementType = ((Type) type).GetElementType();
 
-            MethodInfo getElementsMethod = typeof(ArraySerializer<T>).GetMethod("GetElements", BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[] { typeof(T), typeof(int) }, null);
+            MethodInfo getElementsMethod = ARRAY_SERIALIZER_TYPE.GetMethod("GetElements", TypeDefinition.Of<T>(), TypeDefinition.IntType);
             _getElementsMethods = new Dictionary<int, MethodInfo>();
+
+            MethodInfo setElementsMethod = ARRAY_SERIALIZER_TYPE.GetMethod("SetElements", TypeDefinition.GenericArrayType, TypeDefinition.IntType);
             
-            MethodInfo setElementsMethod = (from MethodInfo method in typeof(ArraySerializer<T>).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
-                                            where method.Name == "SetElements"
-                                            select method).First();
             _setElementsMethods = new Dictionary<int, MethodInfo>();
-            _setElementsMethods.Add(_dimiensions, setElementsMethod.MakeGenericMethod(_baseType));
+            _setElementsMethods.Add(_dimiensions, setElementsMethod.MakeGenericMethod(ElementType));
 
-            while (_baseType.IsArray)
+            while (ElementType.IsArray)
             {
-                _getElementsMethods.Add(_dimiensions, getElementsMethod.MakeGenericMethod(_baseType));
-                _baseType = _baseType.GetElementType();
+                _getElementsMethods.Add(_dimiensions, getElementsMethod.MakeGenericMethod(ElementType));
+                ElementType = ((Type)ElementType).GetElementType();
                 _dimiensions++;
-                _setElementsMethods.Add(_dimiensions, setElementsMethod.MakeGenericMethod(_baseType));
-                
-            }
-            _getElementsMethods.Add(_dimiensions, getElementsMethod.MakeGenericMethod(_baseType));
+                _setElementsMethods.Add(_dimiensions, setElementsMethod.MakeGenericMethod(ElementType));
 
-            //_serializer = (Serializer<T>) SerializerFactory<T>.CreateConverter(_baseType, property, attribute, format, null);
-	        BaseSerializer = serializer;
-			//_serializer.Transformator = transformator;
+            }
+            _getElementsMethods.Add(_dimiensions, getElementsMethod.MakeGenericMethod(ElementType));
+
+            BaseSerializer = serializer;
         }
 
         public MethodInfo GetElementsMethod(int index)
         {
             return _getElementsMethods[index];
         }
-       
+
         public MethodInfo SetElementsMethod(int index)
         {
             return _setElementsMethods[index];
         }
-        
+
         public override object ConvertToObject(T item)
         {
             throw new NotImplementedException();
@@ -79,7 +74,7 @@ namespace Common.Runtime.Serialization
         }
 
         protected virtual U[] GetElements<U>(T item, int dimension)
-        { 
+        {
             throw new NotImplementedException();
         }
 
@@ -92,10 +87,10 @@ namespace Common.Runtime.Serialization
         {
             throw new NotImplementedException();
         }
-        
+
         protected internal virtual U GetElement<U>(T item)
         {
             throw new NotImplementedException();
-        }        
+        }
     }
 }

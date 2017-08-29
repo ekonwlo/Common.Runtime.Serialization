@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.Xml.Linq;
+using System.Reflection;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.Xml
 {
@@ -13,7 +12,7 @@ namespace Common.Runtime.Serialization.Xml
     sealed class XDynamicSerializer
         : DynamicSerializer<XObject>
     {
-		internal XDynamicSerializer(SerializerFactory<XObject> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<XObject>> serializers)
+		internal XDynamicSerializer(SerializerFactory<XObject> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<XObject>> serializers)
             : base(factory, type, property, attribute, format, selector, serializers)
         { }   
 

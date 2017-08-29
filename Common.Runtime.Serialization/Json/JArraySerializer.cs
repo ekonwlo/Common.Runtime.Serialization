@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.Json
 {
@@ -11,7 +12,7 @@ namespace Common.Runtime.Serialization.Json
     sealed class JArraySerializer
         : ArraySerializer<JToken>
     {
-		internal JArraySerializer(SerializerFactory<JToken> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<JToken> serializer)
+		internal JArraySerializer(SerializerFactory<JToken> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<JToken> serializer)
             : base(factory, type, property, attribute, format, transformator, serializer) 
         { }
 

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Reflection;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.Xml
 {
@@ -13,7 +13,7 @@ namespace Common.Runtime.Serialization.Xml
         : ObjectSerializer<XObject>
     {
 		internal XObjectSerializer(SerializerFactory<XObject> factory
-            , Type type
+            , TypeDefinition type
             , PropertyInfo property
             , ISerializableProperty attribute
             , string format

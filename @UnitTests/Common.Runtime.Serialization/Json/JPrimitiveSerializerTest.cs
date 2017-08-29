@@ -3,6 +3,7 @@ using System.Reflection;
 using Xunit;
 using NSubstitute;
 using Newtonsoft.Json.Linq;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.UnitTests.Json
 {
@@ -57,7 +58,7 @@ namespace Common.Runtime.Serialization.UnitTests.Json
             var instance = new JPrimitiveSerializer(FACTORY, typeof(string), STRING_PROP, STRING_ATTR, null, null);
 
             Assert.IsAssignableFrom<ISerializer<JToken>>(instance);
-            Assert.Equal(typeof(string), instance.Type);
+            Assert.Equal(TypeDefinition.StringType, instance.Type);
             Assert.Equal(TestClass.STRING_ATTR_NAME, instance.Name);
             Assert.Equal(STRING_PROP, instance.Property);
             Assert.Equal(STRING_ATTR, instance.Attribute);

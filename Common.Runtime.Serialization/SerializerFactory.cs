@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Common.Reflection.MultiTarget;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization
 {
@@ -12,46 +12,44 @@ namespace Common.Runtime.Serialization
     public abstract class SerializerFactory<T>
 		: ISerializerFactory<T>
     {        
-        public delegate ISerializer<T>[] CreateSerializersDelegate<U>(Type type) where U: ISerializableProperty;
+        public delegate ISerializer<T>[] CreateSerializersDelegate<U>(TypeDefinition type) where U: ISerializableProperty;
 
         private readonly  SerializersMap<T> _hash = new SerializersMap<T>();
         
 		public abstract ISerializer<T>[] Create<U>(Type type) where U: ISerializableProperty;
         
-		internal protected ISerializer<T>[] CreateSerializsers<U>(Type type) where U: ISerializableProperty
+		internal protected ISerializer<T>[] CreateSerializers<U>(TypeDefinition type) where U: ISerializableProperty
         {  
-            return (from PropertyInfo prop in type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.SetProperty)
+            return (from PropertyInfo prop in type.GetProperties()
                     let converter = CreateConverter<U>(prop)
                     where converter != null
                     select (Serializer<T>)converter).ToArray();            
         }
 
-		internal protected ISerializer<T>[] CreateSerializsers<U>(Type type, string version, bool @explicit = false) where U: ISerializableProperty
+		internal protected ISerializer<T>[] CreateSerializsers<U>(TypeDefinition type, string version, bool @explicit = false) where U: ISerializableProperty
 		{
 			if (version == null)
 			{
-				return CreateSerializsers<U>(type);
+				return CreateSerializers<U>(type);
 			}
 			else
 			{				
-				return (from PropertyInfo prop in
-					type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty |
-						                BindingFlags.SetProperty)
+				return (from PropertyInfo prop in type.GetProperties()
 					let converter = CreateConverter<U>(prop, version, @explicit)
 					where converter != null
 					select (Serializer<T>) converter).ToArray();				
 			}
 		}
 
-		protected abstract ISerializer<T> CreatePrimitiveConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator);
-		protected abstract ISerializer<T> CreateNullableConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator);
-		public abstract ISerializer<T> CreateArrayConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer);
-        protected abstract ISerializer<T> CreateObjectConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, CreateSerializersDelegate<ISerializableProperty> createSerializersCallback);
-        protected abstract ISerializer<T> CreateDynamicConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers);
+		protected abstract ISerializer<T> CreatePrimitiveConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator);
+		protected abstract ISerializer<T> CreateNullableConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator);
+		public abstract ISerializer<T> CreateArrayConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer);
+        protected abstract ISerializer<T> CreateObjectConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, CreateSerializersDelegate<ISerializableProperty> createSerializersCallback);
+        protected abstract ISerializer<T> CreateDynamicConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers);
         
-		internal virtual ISerializer<T> CreateConverter<U>(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator) where U: ISerializableProperty
+		internal virtual ISerializer<T> CreateConverter<U>(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator) where U: ISerializableProperty
         {
-            if (type.IsClass() && !( type == typeof(string) || type.IsArray() ))
+            if (type.IsClass && !(((Type)type) == typeof(string) || type.IsArray ))
             {
                 Serializer<T> serializer = _hash[type, property, attribute];
                 if (serializer != null)
@@ -63,7 +61,7 @@ namespace Common.Runtime.Serialization
 
             Type baseType = Nullable.GetUnderlyingType(type);
 
-            if (type.IsPrimitive() || type == typeof(string))
+            if (type.IsPrimitive || ((Type)type) == typeof(string))
             {
                 return CreatePrimitiveConverter(type, property, attribute, format, transformator);
             }
@@ -77,11 +75,11 @@ namespace Common.Runtime.Serialization
 				
                 return CreateArrayConverter(type, property, attribute, format, transformator, serializer);
             }
-            else if (type.IsClass())
+            else if (type.IsClass)
             {                
-                ConstructorInfo constructor = TypeHelper.GetDefaultConstructor(type);
-                IEnumerable<ISerializer<T>> serializers = CreateSerializsers<U>(type);
-                return CreateObjectConverter(type, property, attribute, format, transformator, constructor, CreateSerializsers<U>);
+                ConstructorInfo constructor = type.GetDefaultConstructor();
+                IEnumerable<ISerializer<T>> serializers = CreateSerializers<U>(type);
+                return CreateObjectConverter(type, property, attribute, format, transformator, constructor, CreateSerializers<U>);
             }
 
             return null;
@@ -173,13 +171,11 @@ namespace Common.Runtime.Serialization
 			return null;
 		}
 
-        private TransofmationSelector GetTransformatorSelector(Type type, PropertyInfo property, PropertyTransformationAttribute attribute)
-        {
-            //if (type == null)
-            //    throw new RestException("");
+        private TransofmationSelector GetTransformatorSelector(TypeDefinition type, PropertyInfo property, PropertyTransformationAttribute attribute)
+        {           
             if (attribute.DynamicExpression != null)
             {
-                PropertyInfo expression = type.GetProperty(attribute.DynamicExpression, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
+                PropertyInfo expression = type.GetProperty(attribute.DynamicExpression);
 
                 return new TransofmationSelector((Delegate)expression.GetValue(attribute.Type.GetConstructor(Type.EmptyTypes).Invoke(null), null), attribute.DynamicTypes);
             }
@@ -216,8 +212,8 @@ namespace Common.Runtime.Serialization
             {
                 //Type[] interfaces = attr.Type.GetInterfaces();
 
-                return (from Type type in attr.Type.GetInterfaces()
-                        where type.IsGenericType() && type.Name == "IRestTransformation`2" && type.GetGenericArguments()[0] == property.PropertyType
+                return (from type in attr.Type.GetInterfaces()
+                        where TypeDefinition.Of(type).IsGenericType && type.Name == "IRestTransformation`2" && type.GetGenericArguments()[0] == property.PropertyType
                         select GetTransformator(type, property, attr)).ToArray();
             }
             return new Transformator[] { };

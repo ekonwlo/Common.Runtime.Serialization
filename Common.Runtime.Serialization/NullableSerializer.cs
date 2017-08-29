@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization
 {
@@ -19,7 +17,7 @@ namespace Common.Runtime.Serialization
             get { return _type; }
         }
 
-        protected NullableSerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+        protected NullableSerializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
             : base(factory, type, property, attribute, format, transformator) 
         {
             _type = Nullable.GetUnderlyingType(type);

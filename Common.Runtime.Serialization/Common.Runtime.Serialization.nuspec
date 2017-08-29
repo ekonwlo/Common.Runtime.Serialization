@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Common.Runtime.Serialization</id>
-    <version>0.9.0.8</version>
+    <version>0.9.0.9</version>
     <title>Common.Runtime.Serialization</title>
     <authors>foreplay</authors>
     <owners>n/a</owners>
@@ -15,20 +15,102 @@
     <copyright>Copyright 2017</copyright>
     <tags>Serialization Conversion XML JSON</tags>
     <dependencies>
-      <dependency id="Common.Reflection" version="0.9.0.10"/>
-      <dependency id="Newtonsoft.Json" version="10.0.3"/>
+      <group targetFramework="net35">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+      </group>
+      <group targetFramework="net40">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+      </group>
+      <group targetFramework="net45">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+      </group>
+      <group targetFramework="net46">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+      </group>
+      <group targetFramework="net47">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+      </group>
+      <group targetFramework="netcoreapp1.0">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="NETStandard.Library" version="1.6.1" />
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.4.0" />
+      </group>
+      <group targetFramework="netcoreapp1.1">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="NETStandard.Library" version="1.6.1" />
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.4.0" />
+      </group>
+      <group targetFramework="netcoreapp2.0">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="NETStandard.Library" version="2.0.0" />
+      </group>
+      <group targetFramework="netstandard1.3">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.4.0" />
+      </group>
+      <group targetFramework="netstandard1.4">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.4.0" />
+      </group>
+      <group targetFramework="netstandard1.5">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.4.0" />
+      </group>
+      <group targetFramework="netstandard1.6">
+        <dependency id="Common.Reflection" version="0.9.0.13"/>
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.3.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.4.0" />
+      </group>  
     </dependencies>
   </metadata>
-    <files>
-      <file src="bin\Publish\net35\Common.Runtime.Serialization.dll" target="lib\net35\Common.Runtime.Serialization.dll" />
-      <file src="bin\Publish\net35\Common.Runtime.Serialization.pdb" target="lib\net35\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Publish\net40\Common.Runtime.Serialization.dll" target="lib\net40\Common.Runtime.Serialization.dll" />
-      <file src="bin\Publish\net40\Common.Runtime.Serialization.pdb" target="lib\net40\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Publish\net45\Common.Runtime.Serialization.dll" target="lib\net45\Common.Runtime.Serialization.dll" />
-      <file src="bin\Publish\net45\Common.Runtime.Serialization.pdb" target="lib\net45\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Publish\net46\Common.Runtime.Serialization.dll" target="lib\net46\Common.Runtime.Serialization.dll" />
-      <file src="bin\Publish\net46\Common.Runtime.Serialization.pdb" target="lib\net46\Common.Runtime.Serialization.pdb" />
-      <file src="bin\Publish\net47\Common.Runtime.Serialization.dll" target="lib\net47\Common.Runtime.Serialization.dll" />
-      <file src="bin\Publish\net47\Common.Runtime.Serialization.pdb" target="lib\net47\Common.Runtime.Serialization.pdb" />
-    </files>
+  <files>
+    <file src="bin\Publish\net35\Common.Runtime.Serialization.dll" target="lib\net35\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\net35\Common.Runtime.Serialization.pdb" target="lib\net35\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\net40\Common.Runtime.Serialization.dll" target="lib\net40\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\net40\Common.Runtime.Serialization.pdb" target="lib\net40\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\net45\Common.Runtime.Serialization.dll" target="lib\net45\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\net45\Common.Runtime.Serialization.pdb" target="lib\net45\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\net46\Common.Runtime.Serialization.dll" target="lib\net46\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\net46\Common.Runtime.Serialization.pdb" target="lib\net46\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\net47\Common.Runtime.Serialization.dll" target="lib\net47\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\net47\Common.Runtime.Serialization.pdb" target="lib\net47\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netcoreapp1.0\Common.Runtime.Serialization.dll" target="lib\netcoreapp1.0\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\netcoreapp1.0\Common.Runtime.Serialization.pdb" target="lib\netcoreapp1.0\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netcoreapp1.0\Common.Runtime.Serialization.deps.json" target="lib\netcoreapp1.0\Common.Runtime.Serialization.deps.json" />
+    <file src="bin\Publish\netcoreapp1.1\Common.Runtime.Serialization.dll" target="lib\netcoreapp1.1\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\netcoreapp1.1\Common.Runtime.Serialization.pdb" target="lib\netcoreapp1.1\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netcoreapp1.1\Common.Runtime.Serialization.deps.json" target="lib\netcoreapp1.1\Common.Runtime.Serialization.deps.json" />
+    <file src="bin\Publish\netcoreapp2.0\Common.Runtime.Serialization.dll" target="lib\netcoreapp2.0\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\netcoreapp2.0\Common.Runtime.Serialization.pdb" target="lib\netcoreapp2.0\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netcoreapp2.0\Common.Runtime.Serialization.deps.json" target="lib\netcoreapp2.0\Common.Runtime.Serialization.deps.json" />
+    <file src="bin\Publish\netstandard1.3\Common.Runtime.Serialization.dll" target="lib\netstandard1.3\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\netstandard1.3\Common.Runtime.Serialization.pdb" target="lib\netstandard1.3\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netstandard1.3\Common.Runtime.Serialization.deps.json" target="lib\netstandard1.3\Common.Runtime.Serialization.deps.json" />
+    <file src="bin\Publish\netstandard1.4\Common.Runtime.Serialization.dll" target="lib\netstandard1.4\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\netstandard1.4\Common.Runtime.Serialization.pdb" target="lib\netstandard1.4\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netstandard1.4\Common.Runtime.Serialization.deps.json" target="lib\netstandard1.4\Common.Runtime.Serialization.deps.json" />
+    <file src="bin\Publish\netstandard1.5\Common.Runtime.Serialization.dll" target="lib\netstandard1.5\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\netstandard1.5\Common.Runtime.Serialization.pdb" target="lib\netstandard1.5\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netstandard1.5\Common.Runtime.Serialization.deps.json" target="lib\netstandard1.5\Common.Runtime.Serialization.deps.json" />
+    <file src="bin\Publish\netstandard1.6\Common.Runtime.Serialization.dll" target="lib\netstandard1.6\Common.Runtime.Serialization.dll" />
+    <file src="bin\Publish\netstandard1.6\Common.Runtime.Serialization.pdb" target="lib\netstandard1.6\Common.Runtime.Serialization.pdb" />
+    <file src="bin\Publish\netstandard1.6\Common.Runtime.Serialization.deps.json" target="lib\netstandard1.6\Common.Runtime.Serialization.deps.json" />
+  </files>
 </package>

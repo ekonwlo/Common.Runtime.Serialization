@@ -15,7 +15,7 @@ namespace Common.Runtime.Serialization
 		protected ConstructorDelegate Constructor { get; private set; }
         
 		protected ObjectSerializer(SerializerFactory<T> factory
-            , Type type
+            , TypeDefinition type
             , PropertyInfo property
             , ISerializableProperty attribute
             , string format, Transformator transformator

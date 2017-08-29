@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using Xunit;
 using NSubstitute;
 using Newtonsoft.Json.Linq;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.UnitTests.Json
 {
@@ -50,8 +47,8 @@ namespace Common.Runtime.Serialization.UnitTests.Json
 
             Assert.NotNull(instance);
             Assert.IsAssignableFrom<ISerializer<JToken>>(instance);
-            Assert.Equal(typeof(string[][]), instance.Type);
-            Assert.Equal(typeof(string), instance.BaseType);
+            Assert.Equal(TypeDefinition.Of<string[][]>(), instance.Type);
+            Assert.Equal(TypeDefinition.StringType, instance.ElementType);
             Assert.Equal(ARRAY_ATTR, instance.Attribute);
             Assert.Equal(ARRAY_PROP, instance.Property);
             Assert.Equal(2, instance.Dimiensions);
@@ -79,11 +76,7 @@ namespace Common.Runtime.Serialization.UnitTests.Json
 
         [Fact(DisplayName = "Should convert string array to jarray")]
         public void ShouldConvertStringArrayToJAray()
-        {
-            //var o = new TestClass()
-            //{
-            //    ArrayStringParam = new string[][] { new string[] { "r1c1", "r1c2", "r1c3" }, new string[] { "r2c1", "r2c2", "r2c3" } }
-            //};
+        {   
             var array = new string[][] { new string[] { "r1c1", "r1c2", "r1c3" }, new string[] { "r2c1", "r2c2", "r2c3" } };
 
             var instance = new JArraySerializer(FACTORY, typeof(string[][]), ARRAY_PROP, ARRAY_ATTR, null, null, BASE_SERIALIZER);

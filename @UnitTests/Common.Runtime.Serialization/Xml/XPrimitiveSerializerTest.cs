@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using System.Reflection;
 using Xunit;
 using NSubstitute;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.UnitTests.Xml
 {
@@ -58,7 +59,7 @@ namespace Common.Runtime.Serialization.UnitTests.Xml
             var instance = new XPrimitiveSerializer(FACTORY, typeof(string), STRING_PROP, STRING_ATTR, null, null);
 
             Assert.IsAssignableFrom<ISerializer<XObject>>(instance);
-            Assert.Equal(typeof(string), instance.Type);
+            Assert.Equal(TypeDefinition.StringType, instance.Type);
             Assert.Equal(TestClass.STRING_ATTR_NAME, instance.Name);
             Assert.Equal(STRING_PROP, instance.Property);
             Assert.Equal(STRING_ATTR, instance.Attribute);

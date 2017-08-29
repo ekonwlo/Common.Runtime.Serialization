@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.Json
 {
@@ -13,7 +13,7 @@ namespace Common.Runtime.Serialization.Json
         : ObjectSerializer<JToken>
     {
         internal JObjectSerializer(SerializerFactory<JToken> factory
-            , Type type
+            , TypeDefinition type
             , PropertyInfo property
             , ISerializableProperty attribute
             , string format

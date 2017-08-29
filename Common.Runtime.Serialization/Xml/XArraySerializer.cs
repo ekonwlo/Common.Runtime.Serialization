@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Reflection;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization.Xml
 {
@@ -13,7 +11,7 @@ namespace Common.Runtime.Serialization.Xml
     sealed class XArraySerializer
         : ArraySerializer<XObject>
     {
-		internal XArraySerializer(SerializerFactory<XObject> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<XObject> serializer)
+		internal XArraySerializer(SerializerFactory<XObject> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<XObject> serializer)
             : base(factory, type, property, attribute, format, transformator, serializer) 
         { }   
 

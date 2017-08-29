@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
+using Common.Reflection;
 
 namespace Common.Runtime.Serialization
 {
@@ -28,7 +27,7 @@ namespace Common.Runtime.Serialization
             }
         }
 
-        protected DynamicSerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers)
+        protected DynamicSerializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, TransofmationSelector selector, IDictionary<Type, ISerializer<T>> serializers)
             : base(factory, type, property, attribute, format, null)
         {
 	        _selector = selector;

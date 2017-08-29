@@ -21,7 +21,7 @@ namespace Common.Runtime.Serialization
         }
 
         //public SerializerFactory<T> Factory { get; private set; }
-        public Type Type { get; private set; }
+        public TypeDefinition Type { get; private set; }
         public ISerializableProperty Attribute { get; private set; }
         public PropertyInfo Property { get; private set; }
 
@@ -36,7 +36,7 @@ namespace Common.Runtime.Serialization
             set { _transformator = value; }
         }
         
-        internal Serializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+        internal Serializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
         {
             if (factory == null) throw new ArgumentNullException("factory", "Factory is required");
             if (type == null) throw new ArgumentNullException("type", "Type is required");
