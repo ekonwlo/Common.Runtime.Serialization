@@ -6,7 +6,7 @@ namespace Common.Runtime.Serialization
 {
     using Attributes;
 
-    internal sealed class ConvertersHash<T>
+    internal sealed class SerializersMap<T>
     {
         private readonly IDictionary<Key, Serializer<T>> _serializers;
 
@@ -28,7 +28,7 @@ namespace Common.Runtime.Serialization
             }
         }
 
-        internal ConvertersHash()
+        internal SerializersMap()
         {
             _serializers = new Dictionary<Key, Serializer<T>>();
         }
@@ -45,15 +45,13 @@ namespace Common.Runtime.Serialization
 
         private class Key
         {
-            Guid TypeGuid { get; set; }
-            Guid PropertyTypeGuid { get; set; }
+            String TypeName { get; set; }
             String PropertyName { get; set; }
             String AttributeName { get; set; }
 
             public Key(Type type, PropertyInfo property, ISerializableProperty attribute)
             {
-                TypeGuid = type.GUID;
-                PropertyTypeGuid = property.DeclaringType.GUID;
+                TypeName = type.FullName;
                 PropertyName = property.Name;
                 AttributeName = attribute.Name;
             }
@@ -68,8 +66,7 @@ namespace Common.Runtime.Serialization
                 Key other = obj as Key;
                 if (other == null) return false;
 
-                if (TypeGuid == other.TypeGuid
-                    && PropertyTypeGuid == other.PropertyTypeGuid
+                if (TypeName == other.TypeName
                     && PropertyName == other.PropertyName
                     && AttributeName == other.AttributeName) return true;
 
@@ -79,8 +76,7 @@ namespace Common.Runtime.Serialization
             public override int GetHashCode()
             {
                 int hash = 17;
-                hash = hash * 23 + TypeGuid.GetHashCode();
-                hash = hash * 23 + PropertyTypeGuid.GetHashCode();
+                hash = hash * 23 + TypeName.GetHashCode();
                 hash = hash * 23 + PropertyName.GetHashCode();
                 hash = hash * 23 + AttributeName.GetHashCode();
 

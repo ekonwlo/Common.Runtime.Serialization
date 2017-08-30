@@ -64,7 +64,6 @@ namespace Common.Runtime.Serialization.IntegTests.Json
             Assert.Equal(TestClass.LONG_VALUE, longElement.Value);
             Assert.Equal(TestClass.FLOAT_VALUE, floatElement.Value);
             Assert.Equal(TestClass.DOUBLE_VALUE, doubleElement.Value);
-
         }
 
         [Fact(DisplayName = "Should convert from jobject to object")]

@@ -11,15 +11,11 @@ namespace Common.Runtime.Serialization
     public abstract class ArraySerializer<T>
         : Serializer<T>
     {
-        //private readonly Serializer<T>[] _converters;
         private readonly int _dimiensions;
         private readonly Type _baseType;
         private readonly Dictionary<int, MethodInfo> _getElementsMethods;
         private readonly Dictionary<int, MethodInfo> _setElementsMethods;
-        private readonly MethodInfo _getGenericElementMethod;
-        private readonly MethodInfo _setGenericElementMethod;
-        private readonly Type _nullableType;
-
+        
         public ISerializer<T> BaseSerializer { get; private set; }
         
         public int Dimiensions
@@ -31,12 +27,7 @@ namespace Common.Runtime.Serialization
         {
             get { return _baseType;}
         }
-
-        public Type NullableType
-        {
-            get { return _nullableType; }
-        }
-
+        
         protected ArraySerializer(SerializerFactory<T> factory, Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer)
             : base(factory, type, property, attribute, format, transformator) 
         {
@@ -65,37 +56,6 @@ namespace Common.Runtime.Serialization
             //_serializer = (Serializer<T>) SerializerFactory<T>.CreateConverter(_baseType, property, attribute, format, null);
 	        BaseSerializer = serializer;
 			//_serializer.Transformator = transformator;
-            
-           _nullableType = Nullable.GetUnderlyingType(BaseType);
-           if (BaseType.IsPrimitive | typeof(string) == BaseType)
-           {
-               MethodInfo getElementMethod = typeof(ArraySerializer<T>).GetMethod("GetPrimitiveElement", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(T) }, null);
-               _getGenericElementMethod = getElementMethod.MakeGenericMethod(new Type[] { BaseType });
-               MethodInfo setElementMethod = (from method in typeof(ArraySerializer<T>).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-                                              where method.Name == "SetPrimitiveElement"
-                                              select method).First();
-               _setGenericElementMethod = setElementMethod.MakeGenericMethod(BaseType);
-           }
-           else if (_nullableType != null)
-           {
-               MethodInfo getElementMethod = typeof(ArraySerializer<T>).GetMethod("GetNullableElement", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(T) }, null);
-               _getGenericElementMethod = getElementMethod.MakeGenericMethod(new Type[] { BaseType });
-               MethodInfo setElementMethod = (from method in typeof(ArraySerializer<T>).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-                                              where method.Name == "SetNullableElement"
-                                              select method).First();
-               _setGenericElementMethod = setElementMethod.MakeGenericMethod(BaseType);
-           }
-           else
-           {
-               MethodInfo getElementMethod = typeof(ArraySerializer<T>).GetMethod("GetElement", BindingFlags.NonPublic | BindingFlags.Instance, null, new Type[] { typeof(T) }, null);
-               _getGenericElementMethod = getElementMethod.MakeGenericMethod(new Type[] { BaseType });
-               MethodInfo setElementMethod = (from method in typeof(ArraySerializer<T>).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-                                              where method.Name == "SetElement"
-                                              select method).First();
-               _setGenericElementMethod = setElementMethod.MakeGenericMethod(BaseType);
-           }     
-
-           //Constructor = _baseType.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, null);
         }
 
         public MethodInfo GetElementsMethod(int index)
@@ -107,17 +67,7 @@ namespace Common.Runtime.Serialization
         {
             return _setElementsMethods[index];
         }
-
-        public MethodInfo GetElementMethod()
-        {
-            return _getGenericElementMethod;
-        }
-
-        public MethodInfo SetElementMethod()
-        {
-            return _setGenericElementMethod;
-        }
-
+        
         public override object ConvertToObject(T item)
         {
             throw new NotImplementedException();
@@ -142,31 +92,10 @@ namespace Common.Runtime.Serialization
         {
             throw new NotImplementedException();
         }
-
-        protected internal virtual T SetPrimitiveElement<U>(U[] items)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected internal virtual T SetNullableElement<U>(U[] items)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         protected internal virtual U GetElement<U>(T item)
         {
             throw new NotImplementedException();
-        }
-
-        protected internal virtual U GetPrimitiveElement<U>(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected internal virtual U GetNullableElement<U>(T item)
-        {
-            throw new NotImplementedException();
-        }
-
+        }        
     }
 }

@@ -20,7 +20,7 @@ namespace Common.Runtime.Serialization
             get { return this; }
         }
 
-        public SerializerFactory<T> Factory { get; private set; }
+        //public SerializerFactory<T> Factory { get; private set; }
         public Type Type { get; private set; }
         public ISerializableProperty Attribute { get; private set; }
         public PropertyInfo Property { get; private set; }
@@ -43,7 +43,6 @@ namespace Common.Runtime.Serialization
             if (property == null) throw new ArgumentNullException("property", "Property is required");
             if (attribute == null) throw new ArgumentNullException("attribute", "Attribute is required");
 
-            Factory = factory;
             Type = type;
             Property = property;
 			Attribute = attribute;

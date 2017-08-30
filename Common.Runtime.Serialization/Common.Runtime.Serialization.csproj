@@ -70,6 +70,9 @@
   <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v1.6'">
     <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Framework)' == '.NETStandard.v2.0'">
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
   <PropertyGroup Condition="$(Framework.StartsWith('.NETFramework'))">
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <ProjectGuid>{02DA4741-CFD4-44F5-828A-1E4CF829EBF0}</ProjectGuid>
@@ -118,7 +121,7 @@
     <Compile Include="Attributes\PropertyTransformationAttribute.cs" />
     <Compile Include="BaseConverter.cs" />
     <Compile Include="SerializerFactory.cs" />
-    <Compile Include="ConvertersHash.cs" />
+    <Compile Include="SerializersMap.cs" />
     <Compile Include="DynamicSerializer.cs" />
     <Compile Include="ISerializer.cs" />
     <Compile Include="ISerializerFactory.cs" />

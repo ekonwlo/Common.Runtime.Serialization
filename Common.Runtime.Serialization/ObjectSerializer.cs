@@ -25,7 +25,7 @@ namespace Common.Runtime.Serialization
         {
             Constructor = constructor.CreateDelegate();
 
-            Factory.Add(this);
+            factory.Add(this);
             Serializers = createSerializersCallback(type);            
         }
     }
