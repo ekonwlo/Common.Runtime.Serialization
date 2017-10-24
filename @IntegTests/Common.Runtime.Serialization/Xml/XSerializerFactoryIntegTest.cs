@@ -8,7 +8,7 @@ namespace Common.Runtime.Serialization.IntegTests.Xml
     using Attributes;
     using Serialization.Xml;
 
-    public class XSerializerFactoryTest
+    public class XSerializerFactoryIntegTest
     {
         [Fact(DisplayName = "Should create instance")]
         public void ShouldCreateInstance()

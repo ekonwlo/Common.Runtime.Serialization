@@ -55,6 +55,20 @@ namespace Common.Runtime.Serialization.UnitTests.Json
 
         }
 
+        [Fact(DisplayName = "Should throw on invalid arguments")]
+        public void ShouldThrowOnInvalidArguments()
+        {
+            Assert.Throws<ArgumentNullException>(() => { new JArraySerializer(null, typeof(string[][]), ARRAY_PROP, ARRAY_ATTR, null, null, BASE_SERIALIZER); });
+            Assert.Throws<ArgumentNullException>(() => { new JArraySerializer(FACTORY, null, ARRAY_PROP, ARRAY_ATTR, null, null, BASE_SERIALIZER); });
+            Assert.Throws<ArgumentNullException>(() => { new JArraySerializer(FACTORY, typeof(string[][]), null, ARRAY_ATTR, null, null, BASE_SERIALIZER); });
+            Assert.Throws<ArgumentNullException>(() => { new JArraySerializer(FACTORY, typeof(string[][]), ARRAY_PROP, null, null, null, BASE_SERIALIZER); });
+            Assert.Throws<ArgumentNullException>(() => { new JArraySerializer(FACTORY, typeof(string[][]), ARRAY_PROP, ARRAY_ATTR, null, null, null); });
+
+            ISerializableProperty array_attr = Substitute.For<ISerializableProperty>();
+            array_attr.Name.Returns((string)null);
+            Assert.Throws<ArgumentNullException>(() => { new JArraySerializer(FACTORY, typeof(string[][]), ARRAY_PROP, array_attr, null, null, BASE_SERIALIZER); });
+        }
+
         [Fact(DisplayName = "Should convert jarray to string array")]
         public void ShouldConvertJArrayToArray()
         {

@@ -8,7 +8,7 @@ namespace Common.Runtime.Serialization
     using Transformation;
 
     public abstract class Serializer<T>
-        : BaseConverter, ISerializer<T>
+        : BaseSerializer, ISerializer<T>
     {
         private readonly PropertySetterDelegate _setter;
 		private readonly PropertyGetterDelegate _getter;
@@ -22,14 +22,8 @@ namespace Common.Runtime.Serialization
 
         //public SerializerFactory<T> Factory { get; private set; }
         public TypeDefinition Type { get; private set; }
-        public ISerializableProperty Attribute { get; private set; }
         public PropertyInfo Property { get; private set; }
-
-        public override string Name
-        {
-            get { return Attribute.Name; }
-        }
-
+        
         public Transformator Transformator
         {
             get { return _transformator; }
@@ -37,15 +31,15 @@ namespace Common.Runtime.Serialization
         }
         
         internal Serializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+            : base(attribute)
         {
             if (factory == null) throw new ArgumentNullException("factory", "Factory is required");
             if (type == null) throw new ArgumentNullException("type", "Type is required");
             if (property == null) throw new ArgumentNullException("property", "Property is required");
-            if (attribute == null) throw new ArgumentNullException("attribute", "Attribute is required");
-
+            
             Type = type;
             Property = property;
-			Attribute = attribute;
+
             _setter = Property.CreateSetterDelegate();
 			_getter = Property.CreateGetterDelegate();
             _format = format;

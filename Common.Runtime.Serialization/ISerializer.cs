@@ -1,11 +1,14 @@
 ﻿namespace Common.Runtime.Serialization
 {
+    using Attributes;
 	using Transformation;
 
 	public interface ISerializer<T>
 	{
 
 		ISerializer<T> this[object item] { get; }
+
+        ISerializableProperty Attribute { get; }
 
         string Name { get; }
 

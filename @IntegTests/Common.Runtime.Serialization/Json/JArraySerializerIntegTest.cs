@@ -6,7 +6,7 @@ namespace Common.Runtime.Serialization.IntegTests.Json
     using Serialization.Json;
     using Attributes;
 
-    public class JArraySerializerTest
+    public class JArraySerializerIntegTest
     {
         private static readonly ISerializerFactory<JToken> FACTORY = new JSerializerFactory();
         private static readonly ISerializer<JToken> INSTANCE = FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[1];

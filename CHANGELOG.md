@@ -1,3 +1,9 @@
+2017-10-24 Konrad Wlodarczyk
+
+    Version 0.9.0.10
+
+    Renaming BaseConverter
+
 2017-08-30 Konrad Wlodarczyk
 
     Version 0.9.0.9
@@ -10,13 +16,11 @@
 
     Cleaning the code
 
-
 2017-08-29 Konrad Wlodarczyk
 
     Version 0.9.0.7
 
     Remove reference to System.Data
-
 
 2017-08-18 Konrad Wlodarczyk
 

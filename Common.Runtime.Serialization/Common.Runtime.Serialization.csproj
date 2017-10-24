@@ -119,7 +119,7 @@
     <Compile Include="Attributes\ISerializableProperty.cs" />
     <Compile Include="Attributes\SerializablePropertyAttribute.cs" />
     <Compile Include="Attributes\PropertyTransformationAttribute.cs" />
-    <Compile Include="BaseConverter.cs" />
+    <Compile Include="BaseSerializer.cs" />
     <Compile Include="SerializerFactory.cs" />
     <Compile Include="SerializersMap.cs" />
     <Compile Include="DynamicSerializer.cs" />

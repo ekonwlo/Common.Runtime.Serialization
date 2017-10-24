@@ -35,11 +35,15 @@ namespace Common.Runtime.Serialization.UnitTests.Xml
 
         [Fact(DisplayName = "Should throw on invalid arguments")]
         public void ShouldThrowOnInvalidArguments()
-        {
+        {            
             Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(null, TEST_TYPE, STRING_PROP, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializers<TestPropertyAttribute>); });
             Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(FACTORY, null, STRING_PROP, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializers<TestPropertyAttribute>); });
             Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(FACTORY, TEST_TYPE, null, STRING_ATTR, null, null, CONSTRUCTOR, FACTORY.CreateSerializers<TestPropertyAttribute>); });
             Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(FACTORY, TEST_TYPE, STRING_PROP, null, null, null, CONSTRUCTOR, FACTORY.CreateSerializers<TestPropertyAttribute>); });
+
+            ISerializableProperty string_attr = Substitute.For<ISerializableProperty>();
+            string_attr.Name.Returns((string)null);
+            Assert.Throws<ArgumentNullException>(() => { new XObjectSerializer(FACTORY, TEST_TYPE, STRING_PROP, string_attr, null, null, CONSTRUCTOR, FACTORY.CreateSerializers<TestPropertyAttribute>); });
         }
 
         [Fact(DisplayName = "Should convert from object")]

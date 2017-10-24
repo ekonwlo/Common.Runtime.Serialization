@@ -72,6 +72,10 @@ namespace Common.Runtime.Serialization.UnitTests.Json
             Assert.Throws<ArgumentNullException>(() => { new JPrimitiveSerializer(FACTORY, typeof(string), null, STRING_ATTR, null, null); });
             Assert.Throws<ArgumentNullException>(() => { new JPrimitiveSerializer(FACTORY, typeof(string), STRING_PROP, null, null, null); });
             Assert.Throws<ArgumentException>(() => { new JPrimitiveSerializer(FACTORY, TEST_TYPE, STRING_PROP, STRING_ATTR, null, null); });
+
+            ISerializableProperty string_attr = Substitute.For<ISerializableProperty>();
+            string_attr.Name.Returns((string)null);
+            Assert.Throws<ArgumentNullException>(() => { new JPrimitiveSerializer(FACTORY, typeof(string), STRING_PROP, string_attr, null, null); });
         }
 
         [Fact(DisplayName = "Should convert string from object")]

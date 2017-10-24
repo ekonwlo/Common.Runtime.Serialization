@@ -17,7 +17,7 @@ namespace Common.Runtime.Serialization
         private readonly Dictionary<int, MethodInfo> _getElementsMethods;
         private readonly Dictionary<int, MethodInfo> _setElementsMethods;
 
-        public ISerializer<T> BaseSerializer { get; private set; }
+        public ISerializer<T> ElementSerializer { get; private set; }
 
         public int Dimiensions
         {
@@ -26,9 +26,11 @@ namespace Common.Runtime.Serialization
 
         public TypeDefinition ElementType { get; private set; }
 
-        protected ArraySerializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer)
+        protected ArraySerializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> elementSerializer)
             : base(factory, type, property, attribute, format, transformator)
         {
+            if (elementSerializer == null) throw new ArgumentNullException("elementSerializer", "Element Serializer is required");
+
             _dimiensions = 1;
             ElementType = ((Type) type).GetElementType();
 
@@ -50,7 +52,7 @@ namespace Common.Runtime.Serialization
             }
             _getElementsMethods.Add(_dimiensions, getElementsMethod.MakeGenericMethod(ElementType));
 
-            BaseSerializer = serializer;
+            ElementSerializer = elementSerializer;
         }
 
         public MethodInfo GetElementsMethod(int index)

@@ -74,6 +74,9 @@ namespace Common.Runtime.Serialization.UnitTests.Xml
             Assert.Throws<ArgumentNullException>(() => { new XPrimitiveSerializer(FACTORY, typeof(string), STRING_PROP, null, null, null); });
             Assert.Throws<ArgumentException>(() => { new XPrimitiveSerializer(FACTORY, TEST_TYPE, STRING_PROP, STRING_ATTR, null, null); });
 
+            ISerializableProperty string_attr = Substitute.For<ISerializableProperty>();
+            string_attr.Name.Returns((string)null);
+            Assert.Throws<ArgumentNullException>(() => { new XPrimitiveSerializer(FACTORY, typeof(string), STRING_PROP, string_attr, null, null); });
         }
 
         [Fact(DisplayName = "Should convert string from object")]

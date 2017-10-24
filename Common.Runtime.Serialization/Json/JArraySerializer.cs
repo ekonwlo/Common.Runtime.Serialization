@@ -12,8 +12,8 @@ namespace Common.Runtime.Serialization.Json
     sealed class JArraySerializer
         : ArraySerializer<JToken>
     {
-		internal JArraySerializer(SerializerFactory<JToken> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<JToken> serializer)
-            : base(factory, type, property, attribute, format, transformator, serializer) 
+		internal JArraySerializer(SerializerFactory<JToken> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<JToken> elementSerializer)
+            : base(factory, type, property, attribute, format, transformator, elementSerializer) 
         { }
 
         public override JToken ConvertFromObject(object item)
@@ -43,7 +43,7 @@ namespace Common.Runtime.Serialization.Json
             if (Dimiensions == dimension)
             {
                 return new JArray((from item in items
-                                   select BaseSerializer.SetElementValue(item)).ToArray());
+                                   select ElementSerializer.SetElementValue(item)).ToArray());
             }
 
             JToken array = new JArray((from item in items
@@ -67,7 +67,7 @@ namespace Common.Runtime.Serialization.Json
             if (Dimiensions == dimension)
             {
                 T[] values = (from JToken child in item.Children()
-                              select (T) BaseSerializer.GetElementValue(child)).ToArray();
+                              select (T)ElementSerializer.GetElementValue(child)).ToArray();
                 return values;
             }
 

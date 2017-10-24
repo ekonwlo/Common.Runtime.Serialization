@@ -8,7 +8,7 @@ namespace Common.Runtime.Serialization.IntegTests.Xml
     using Attributes;
     using Serialization.Xml;
 
-    public class XObjectSerializerTest
+    public class XObjectSerializerIntegTest
     {
         private static readonly ISerializerFactory<XObject> FACTORY = new XSerializerFactory();
         private static readonly ISerializer<XObject> INSTANCE = FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[0];

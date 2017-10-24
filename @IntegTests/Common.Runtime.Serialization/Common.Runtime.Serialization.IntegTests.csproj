@@ -3,7 +3,7 @@
   <Import Project="..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="..\..\packages\xunit.runner.msbuild.2.2.0\build\net452\xunit.runner.msbuild.props" Condition="Exists('..\..\packages\xunit.runner.msbuild.2.2.0\build\net452\xunit.runner.msbuild.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
+  <PropertyGroup>
     <RootNamespace>Common.Runtime.Serialization.IntegTests</RootNamespace>
     <AssemblyName>Common.Runtime.Serialization.IntegTests</AssemblyName>
     <Framework Condition="'$(Framework)' == ''">.NETFramework.v4.6</Framework>
@@ -116,12 +116,12 @@
   <Import Project="Common.Runtime.Serialization.IntegTests$(Framework).conf" />
   <ItemGroup>
     <Compile Include="Attributes\TestPropertyAttribute.cs" />
-    <Compile Include="Json\JArraySerializerTest.cs" />
-    <Compile Include="Json\JObjectSerializerTest.cs" />
+    <Compile Include="Json\JArraySerializerIntegTest.cs" />
+    <Compile Include="Json\JObjectSerializerIntegTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestChildClass.cs" />
-    <Compile Include="Xml\XObjectSerializerTest.cs" />
-    <Compile Include="Xml\XSerializerFactoryTest.cs" />
+    <Compile Include="Xml\XObjectSerializerIntegTest.cs" />
+    <Compile Include="Xml\XSerializerFactoryIntegTest.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
