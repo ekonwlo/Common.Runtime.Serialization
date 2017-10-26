@@ -113,7 +113,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <Import Project="Common.Runtime.Serialization.IntegTests$(Framework).conf" />
+  <Import Project="Common.Runtime.Serialization.IntegTests$(Framework).xml" />
   <ItemGroup>
     <Compile Include="Attributes\TestPropertyAttribute.cs" />
     <Compile Include="Json\JArraySerializerIntegTest.cs" />

@@ -3,19 +3,18 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Publish\</OutputPath>
-    <OutDir>bin\Publish\netcoreapp1.1</OutDir>
+    <OutDir>bin\Publish\netstandard1.5</OutDir>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <DefineConstants>NET_CORE</DefineConstants>
+    <DefineConstants>NET_STANDARD</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Common.Reflection" Version="0.9.0.14" />
+    <PackageReference Include="Common.Reflection" Version="0.9.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="NETStandard.Library" Version="1.6.1" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.4.0" />
   </ItemGroup>

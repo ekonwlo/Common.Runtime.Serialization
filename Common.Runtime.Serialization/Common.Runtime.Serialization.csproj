@@ -113,7 +113,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <Import Project="Common.Runtime.Serialization$(Framework).conf" />
+  <Import Project="Common.Runtime.Serialization$(Framework).xml" />
   <ItemGroup>
     <Compile Include="ArraySerializer.cs" />
     <Compile Include="Attributes\ISerializableProperty.cs" />
