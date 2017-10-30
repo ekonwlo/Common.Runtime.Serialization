@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Reflection;
-using Common.Reflection;
 
 namespace Common.Runtime.Serialization
 {
-	using Attributes;
-	using Transformation;
+    using Attributes;
 
-	public interface ISerializerFactory<T>
-	{
-        ISerializer<T>[] Create<U>(Type type) where U : ISerializableProperty;
-        
-        ISerializer<T> CreateArrayConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<T> serializer); //where U : RestAttribute;
-		//ISerializer<T> CreateObjectConverter(Type type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, IEnumerable<ISerializer<T>> serializers); //where U : RestAttribute;
-        
-	}
+    public interface ISerializerFactory
+    {
+        ISerializer[] Create<U>(Type type) where U : ISerializableProperty;
+    }
+
+    [Obsolete()]
+    public interface ISerializerFactory<T> : ISerializerFactory
+    { }
 }

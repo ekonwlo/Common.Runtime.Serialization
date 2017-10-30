@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Common.Reflection;
 
@@ -8,13 +7,13 @@ namespace Common.Runtime.Serialization
     using Attributes;
     using Transformation;
 
-    public abstract class ObjectSerializer<T> 
+    public abstract class ObjectSerializer<T>
         : Serializer<T>
     {
-		public IEnumerable<ISerializer<T>> Serializers { get; private set; }
-		protected ConstructorDelegate Constructor { get; private set; }
-        
-		protected ObjectSerializer(SerializerFactory<T> factory
+        public IEnumerable<ISerializer> Serializers { get; private set; }
+        protected ConstructorDelegate Constructor { get; private set; }
+
+        protected ObjectSerializer(SerializerFactory<T> factory
             , TypeDefinition type
             , PropertyInfo property
             , ISerializableProperty attribute
@@ -26,7 +25,7 @@ namespace Common.Runtime.Serialization
             Constructor = constructor.CreateDelegate();
 
             factory.Add(this);
-            Serializers = createSerializersCallback(type);            
+            Serializers = createSerializersCallback(type);
         }
     }
 }

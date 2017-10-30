@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 using Xunit;
 
@@ -10,8 +9,8 @@ namespace Common.Runtime.Serialization.IntegTests.Xml
 
     public class XObjectSerializerIntegTest
     {
-        private static readonly ISerializerFactory<XObject> FACTORY = new XSerializerFactory();
-        private static readonly ISerializer<XObject> INSTANCE = FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[0];
+        private static readonly ISerializerFactory FACTORY = new XSerializerFactory();
+        private static readonly ISerializer<XObject> INSTANCE = (ISerializer<XObject>) FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[0];
         
         private static readonly XElement XELEMENT = new XElement(TestClass.OBJECT_ATTR_NAME, new XElement[] {
                 new XElement(TestClass.STRING_ATTR_NAME, new XText(TestClass.OTHER_STRING_VALUE)),

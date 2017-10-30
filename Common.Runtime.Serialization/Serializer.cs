@@ -11,39 +11,30 @@ namespace Common.Runtime.Serialization
         : BaseSerializer, ISerializer<T>
     {
         private readonly PropertySetterDelegate _setter;
-		private readonly PropertyGetterDelegate _getter;
+        private readonly PropertyGetterDelegate _getter;
         private readonly string _format;
-        private Transformator _transformator;
 
         public virtual ISerializer<T> this[object item]
         {
             get { return this; }
         }
 
-        //public SerializerFactory<T> Factory { get; private set; }
         public TypeDefinition Type { get; private set; }
         public PropertyInfo Property { get; private set; }
-        
-        public Transformator Transformator
-        {
-            get { return _transformator; }
-            set { _transformator = value; }
-        }
-        
+
         internal Serializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
-            : base(attribute)
+            : base(attribute, transformator)
         {
             if (factory == null) throw new ArgumentNullException("factory", "Factory is required");
             if (type == null) throw new ArgumentNullException("type", "Type is required");
             if (property == null) throw new ArgumentNullException("property", "Property is required");
-            
+
             Type = type;
             Property = property;
 
             _setter = Property.CreateSetterDelegate();
-			_getter = Property.CreateGetterDelegate();
+            _getter = Property.CreateGetterDelegate();
             _format = format;
-            _transformator = transformator;
         }
 
         private object GetPropertyRawValue(object item)
@@ -51,19 +42,18 @@ namespace Common.Runtime.Serialization
             return item;
         }
 
-        public virtual object GetPropertyValue(object item)
+        public override object GetPropertyValue(object item)
         {
-			object value = _getter.Invoke(item);
-            
+            object value = _getter.Invoke(item);
+
             if (value == null && Attribute.Mandatory)
                 throw new ArgumentNullException(Property.Name);
 
-            if (_transformator != null)
-                return _transformator.Transform(value);
+            if (Transformator != null)
+                return Transformator.Transform(value);
 
             return value;
         }
-
 
         public override string GetPropertyString(object item)
         {
@@ -75,17 +65,17 @@ namespace Common.Runtime.Serialization
             return value.ToString();
         }
 
-        public virtual void SetPropertyValue(object item, object value)
+        public override void SetPropertyValue(object item, object value)
         {
             if (value == null & !Attribute.Mandatory)
                 return;
 
-            if (_transformator != null)
+            if (Transformator != null)
             {
-				_setter.Invoke(item, _transformator.Revert(value));
+                _setter.Invoke(item, Transformator.Revert(value));
                 return;
             }
-			_setter.Invoke(item, value);
+            _setter.Invoke(item, value);
         }
 
         public override void SetPropertyString(object item, string value)
@@ -111,7 +101,7 @@ namespace Common.Runtime.Serialization
             return ConvertFromObject(item).ToString();
         }
 
-        public override object FromString(string text)
+        public override object FromString(string value)
         {
             throw new NotImplementedException();
         }

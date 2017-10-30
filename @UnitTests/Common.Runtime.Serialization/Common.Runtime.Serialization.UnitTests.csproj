@@ -118,11 +118,13 @@
     <Compile Include="Attributes\TestPropertyAttribute.cs" />
     <Compile Include="Json\JArraySerializerTest.cs" />
     <Compile Include="Json\JPrimitiveSerializerTest.cs" />
+    <Compile Include="Json\JSerializerFactoryTest.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="UtilsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\XObjectSerializerTest.cs" />
     <Compile Include="Xml\XPrimitiveSerializerTest.cs" />
+    <Compile Include="Xml\XSerializerFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

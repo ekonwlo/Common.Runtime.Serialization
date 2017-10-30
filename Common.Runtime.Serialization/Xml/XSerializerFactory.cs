@@ -12,21 +12,21 @@ namespace Common.Runtime.Serialization.Xml
     public sealed class XSerializerFactory
         : SerializerFactory<XObject>
     {
-		public override ISerializer<XObject>[] Create<U>(Type type)
+        public override ISerializer[] Create<U>(Type type)
         {
             return CreateSerializers<U>(type);
         }
 
-		protected override ISerializer<XObject> CreatePrimitiveConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+        protected override ISerializer<XObject> CreatePrimitiveConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
         {
             return new XPrimitiveSerializer(this, type, property, attribute, format, transformator);
         }
 
-		public override ISerializer<XObject> CreateArrayConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<XObject> serializer)
+        protected override ISerializer<XObject> CreateArrayConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ISerializer<XObject> serializer)
         {
             return new XArraySerializer(this, type, property, attribute, format, transformator, serializer);
         }
-        
+
         protected override ISerializer<XObject> CreateObjectConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator, ConstructorInfo constructor, CreateSerializersDelegate<ISerializableProperty> createSerializersCallback)
         {
             return new XObjectSerializer(this, type, property, attribute, format, transformator, constructor, createSerializersCallback);
@@ -37,7 +37,7 @@ namespace Common.Runtime.Serialization.Xml
             return new XDynamicSerializer(this, type, property, attribute, format, selector, serializers);
         }
 
-		protected override ISerializer<XObject> CreateNullableConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
+        protected override ISerializer<XObject> CreateNullableConverter(TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
         {
             return new XNullableSerializer(this, type, property, attribute, format, transformator);
         }

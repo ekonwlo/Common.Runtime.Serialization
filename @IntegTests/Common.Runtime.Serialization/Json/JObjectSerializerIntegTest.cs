@@ -8,8 +8,8 @@ namespace Common.Runtime.Serialization.IntegTests.Json
 
     public class JObjectSerializerIntegTest
     {
-        private static readonly ISerializerFactory<JToken> FACTORY = new JSerializerFactory();
-        private static readonly ISerializer<JToken> INSTANCE = FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[0];
+        private static readonly ISerializerFactory FACTORY = new JSerializerFactory();
+        private static readonly ISerializer<JToken> INSTANCE = (ISerializer<JToken>) FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[0];
 
         private static readonly JToken JOBJECT = new JObject(
                 new JProperty(TestClass.STRING_ATTR_NAME, new JValue(TestClass.OTHER_STRING_VALUE)),

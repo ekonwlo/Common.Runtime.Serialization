@@ -8,8 +8,8 @@ namespace Common.Runtime.Serialization.IntegTests.Json
 
     public class JArraySerializerIntegTest
     {
-        private static readonly ISerializerFactory<JToken> FACTORY = new JSerializerFactory();
-        private static readonly ISerializer<JToken> INSTANCE = FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[1];
+        private static readonly ISerializerFactory FACTORY = new JSerializerFactory();
+        private static readonly ISerializer<JToken> INSTANCE = (ISerializer<JToken>) FACTORY.Create<TestPropertyAttribute>(typeof(TestClass))[1];
 
         [Fact(DisplayName = "Should convert from jarray to array")]
         public void ShouldConvertToArray()
