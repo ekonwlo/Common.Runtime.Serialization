@@ -77,9 +77,9 @@ namespace Common.Runtime.Serialization.Json
             return elements;
         }
 
-        public sealed override object FromString(string text)
+        public sealed override object From<U>(U text)
         {
-            return ConvertToObject(JToken.Parse(text));
+            return ConvertToObject(Factory.Parsers.Find<U>().ParseFrom(text));
         }
     }
 }

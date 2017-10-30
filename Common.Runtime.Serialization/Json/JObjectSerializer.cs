@@ -35,12 +35,12 @@ namespace Common.Runtime.Serialization.Json
 
         public override object ConvertToObject(JToken item)
         {
-            if(item == null)
+            if (item == null)
             {
-                if(Attribute.Mandatory) throw new ArgumentNullException("item", "Item is mandatory");
+                if (Attribute.Mandatory) throw new ArgumentNullException("item", "Item is mandatory");
                 return null;
             }
-            
+
             switch (item.Type)
             {
                 case JTokenType.Property:
@@ -76,20 +76,15 @@ namespace Common.Runtime.Serialization.Json
             }
             return subitem;
         }
-        
-        public override JToken SetElementValue(object item)
-        {         
-            return base.SetElementValue(item);
+
+        public sealed override U To<U>(object item)
+        {
+            return Factory.Parsers.Find<U>().ParseTo(ConvertFromObject(item));
         }
 
-        public sealed override string ToString(object item)
+        public sealed override object From<U>(U input)
         {
-            return ConvertFromObject(item).First.ToString();
-        }
-
-        public sealed override object FromString(string text)
-        {
-            return ConvertToObject(JToken.Parse(text));
+            return ConvertToObject(Factory.Parsers.Find<U>().ParseFrom(input));
         }
 
     }

@@ -8,13 +8,22 @@ namespace Common.Runtime.Serialization
 {
     using Attributes;
     using Transformation;
+    using Parsers;
 
     public abstract class SerializerFactory<T>
         : ISerializerFactory
     {
         public delegate ISerializer[] CreateSerializersDelegate<U>(TypeDefinition type) where U : ISerializableProperty;
 
-        private readonly SerializersMap<T> _hash = new SerializersMap<T>();
+        private readonly SerializersMap<T> _hash;
+
+        internal ParserRepository<T> Parsers { get; private set; }
+
+        protected SerializerFactory()
+        {
+            _hash = new SerializersMap<T>();
+            Parsers = new ParserRepository<T>();
+        }
 
         public abstract ISerializer[] Create<U>(Type type) where U : ISerializableProperty;
 

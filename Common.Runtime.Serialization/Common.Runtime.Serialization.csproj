@@ -120,6 +120,10 @@
     <Compile Include="Attributes\SerializablePropertyAttribute.cs" />
     <Compile Include="Attributes\PropertyTransformationAttribute.cs" />
     <Compile Include="BaseSerializer.cs" />
+    <Compile Include="Json\Parsers\JStringParser.cs" />
+    <Compile Include="Parsers\IParser.cs" />
+    <Compile Include="Parsers\ParserRepository.cs" />
+    <Compile Include="Parsers\StringParser.cs" />
     <Compile Include="SerializerFactory.cs" />
     <Compile Include="SerializersMap.cs" />
     <Compile Include="DynamicSerializer.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="Transformation\TransofmationSelector.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="Xml\Parsers\XStringParser.cs" />
     <Compile Include="Xml\XArraySerializer.cs" />
     <Compile Include="Xml\XSerializerFactory.cs" />
     <Compile Include="Xml\XDynamicSerializer.cs" />

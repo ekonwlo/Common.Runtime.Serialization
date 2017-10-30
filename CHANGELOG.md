@@ -1,5 +1,11 @@
 2017-10-30 Konrad Wlodarczyk
 
+    Version 0.9.0.13
+
+    Extending non-generic interfaces
+
+2017-10-30 Konrad Wlodarczyk
+
     Version 0.9.0.12
 
     Creating non-generic interfaces

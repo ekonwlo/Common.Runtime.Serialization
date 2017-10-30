@@ -8,10 +8,16 @@ namespace Common.Runtime.Serialization.Xml
 {
     using Attributes;
     using Transformation;
+    using Parsers;
 
     public sealed class XSerializerFactory
         : SerializerFactory<XObject>
     {
+        public XSerializerFactory() : base()
+        {
+            Parsers.Register<string>(new XStringParser());
+        }
+
         public override ISerializer[] Create<U>(Type type)
         {
             return CreateSerializers<U>(type);

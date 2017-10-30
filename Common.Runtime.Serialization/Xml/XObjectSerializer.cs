@@ -58,9 +58,9 @@ namespace Common.Runtime.Serialization.Xml
             return o;
         }
 
-        public sealed override object FromString(string text)
+        public sealed override object From<U>(U input)
         {
-            return ConvertToObject(XElement.Parse(text));
+            return ConvertToObject(Factory.Parsers.Find<U>().ParseFrom(input));
         }
 
     }

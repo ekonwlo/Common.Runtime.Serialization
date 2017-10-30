@@ -14,6 +14,14 @@
         object GetPropertyValue(object item);
 
         void SetPropertyValue(object item, object value);
+
+        U GetProperty<U>(object item);
+
+        void SetProperty<U>(object item, U value);
+
+        T To<T>(object item);
+
+        object From<T>(T value);
     }
 
     public interface ISerializer<T> : ISerializer

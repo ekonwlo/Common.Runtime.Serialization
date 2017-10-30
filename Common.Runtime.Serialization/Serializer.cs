@@ -10,6 +10,7 @@ namespace Common.Runtime.Serialization
     public abstract class Serializer<T>
         : BaseSerializer, ISerializer<T>
     {
+
         private readonly PropertySetterDelegate _setter;
         private readonly PropertyGetterDelegate _getter;
         private readonly string _format;
@@ -19,9 +20,10 @@ namespace Common.Runtime.Serialization
             get { return this; }
         }
 
+        public SerializerFactory<T> Factory { get; private set; }
         public TypeDefinition Type { get; private set; }
         public PropertyInfo Property { get; private set; }
-
+        
         internal Serializer(SerializerFactory<T> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
             : base(attribute, transformator)
         {
@@ -55,15 +57,19 @@ namespace Common.Runtime.Serialization
             return value;
         }
 
-        public override string GetPropertyString(object item)
+        public override U GetProperty<U>(object item)
         {
-            object value = GetPropertyValue(item);
-
-            if (value == null)
-                return null;
-
-            return value.ToString();
+            throw new NotImplementedException();
         }
+        //public override U GetProperty<U>(object item)
+        //{
+        //    object value = GetPropertyValue(item);
+
+        //    if (value == null)
+        //        return null;
+
+        //    return value.ToString();
+        //}
 
         public override void SetPropertyValue(object item, object value)
         {
@@ -78,9 +84,9 @@ namespace Common.Runtime.Serialization
             _setter.Invoke(item, value);
         }
 
-        public override void SetPropertyString(object item, string value)
+        public override void SetProperty<U>(object item, U value)
         {
-            SetPropertyValue(item, FromString(value));
+            SetPropertyValue(item, From<U>(value));
         }
 
         public abstract T ConvertFromObject(object item);
@@ -96,12 +102,12 @@ namespace Common.Runtime.Serialization
             return null;
         }
 
-        public override string ToString(object item)
+        public override U To<U>(object item)
         {
-            return ConvertFromObject(item).ToString();
+            return Factory.Parsers.Find<U>().ParseTo(ConvertFromObject(item));
         }
 
-        public override object FromString(string value)
+        public override object From<U>(U value)
         {
             throw new NotImplementedException();
         }

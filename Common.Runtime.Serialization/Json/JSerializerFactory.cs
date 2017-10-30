@@ -8,10 +8,15 @@ namespace Common.Runtime.Serialization.Json
 {
     using Attributes;
     using Transformation;
+    using Parsers;
 
     public sealed class JSerializerFactory
         : SerializerFactory<JToken>
     {
+        public JSerializerFactory() : base()
+        {
+            Parsers.Register<string>(new JStringParser());
+        }
 
         public override ISerializer[] Create<U>(Type type)
         {

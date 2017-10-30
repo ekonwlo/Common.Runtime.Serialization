@@ -23,10 +23,10 @@ namespace Common.Runtime.Serialization
         public abstract object GetPropertyValue(object item);
         public abstract void SetPropertyValue(object item, object value);
 
-        public abstract string GetPropertyString(object item);
-        public abstract void SetPropertyString(object item, string value);
+        public abstract U GetProperty<U>(object item);
+        public abstract void SetProperty<U>(object item, U value);
 
-        public abstract string ToString(object item);
-        public abstract object FromString(string value);
+        public abstract T To<T>(object item);
+        public abstract object From<T>(T value);
     }
 }

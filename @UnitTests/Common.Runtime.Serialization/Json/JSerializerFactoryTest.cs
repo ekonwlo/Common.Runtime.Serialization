@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Xunit;
-
+using Common.Runtime.Serialization.Parsers;
 
 namespace Common.Runtime.Serialization.UnitTests.Json
 {
@@ -16,6 +16,8 @@ namespace Common.Runtime.Serialization.UnitTests.Json
             Assert.NotNull(instance);
             Assert.IsAssignableFrom<ISerializerFactory>(instance);
             Assert.IsAssignableFrom<SerializerFactory<JToken>>(instance);
+            Assert.NotNull(instance.Parsers);
+            Assert.IsAssignableFrom<StringParser<JToken>>(instance.Parsers.Find<string>());
         }
     }
 }

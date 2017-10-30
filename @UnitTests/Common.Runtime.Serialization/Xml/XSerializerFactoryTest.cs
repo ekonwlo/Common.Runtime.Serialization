@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using Xunit;
+using Common.Runtime.Serialization.Parsers;
 
 namespace Common.Runtime.Serialization.UnitTests.Xml
 {
@@ -15,6 +16,8 @@ namespace Common.Runtime.Serialization.UnitTests.Xml
             Assert.NotNull(instance);
             Assert.IsAssignableFrom<ISerializerFactory>(instance);
             Assert.IsAssignableFrom<SerializerFactory<XObject>>(instance);
+            Assert.NotNull(instance.Parsers);
+            Assert.IsAssignableFrom<StringParser<XObject>>(instance.Parsers.Find<string>());
         }
     }
 }

@@ -119,6 +119,7 @@
     <Compile Include="Json\JArraySerializerTest.cs" />
     <Compile Include="Json\JPrimitiveSerializerTest.cs" />
     <Compile Include="Json\JSerializerFactoryTest.cs" />
+    <Compile Include="Parsers\ParserRepositoryTest.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="UtilsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
