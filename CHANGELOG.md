@@ -1,3 +1,9 @@
+2017-11-11 Konrad Wlodarczyk
+
+    Version 0.9.0.14
+
+    Updating dependencies
+
 2017-10-30 Konrad Wlodarczyk
 
     Version 0.9.0.13
