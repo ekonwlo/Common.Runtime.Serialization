@@ -124,6 +124,7 @@
     <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Parsers\ParserRepository.cs" />
     <Compile Include="Parsers\StringParser.cs" />
+    <Compile Include="SerializationException.cs" />
     <Compile Include="SerializerFactory.cs" />
     <Compile Include="SerializersMap.cs" />
     <Compile Include="DynamicSerializer.cs" />

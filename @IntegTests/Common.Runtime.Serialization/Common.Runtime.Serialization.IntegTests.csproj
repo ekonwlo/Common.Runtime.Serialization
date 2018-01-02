@@ -117,12 +117,17 @@
   <ItemGroup>
     <Compile Include="Attributes\TestPropertyAttribute.cs" />
     <Compile Include="Json\JArraySerializerIntegTest.cs" />
+    <Compile Include="Json\JDynamicSerializerIntegTest.cs" />
+    <Compile Include="Json\JNullableSerializerIntegTest.cs" />
     <Compile Include="Json\JObjectSerializerIntegTest.cs" />
+    <Compile Include="Json\JPrimitiveSerializerIntegTest.cs" />
     <Compile Include="Json\Parsers\JStringParserIntegTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestChildClass.cs" />
+    <Compile Include="TestNullableClass.cs" />
     <Compile Include="Xml\Parsers\XStringParserIntegTests.cs" />
     <Compile Include="Xml\XObjectSerializerIntegTest.cs" />
+    <Compile Include="Xml\XPrimitiveSerializerIntegTest.cs" />
     <Compile Include="Xml\XSerializerFactoryIntegTest.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>

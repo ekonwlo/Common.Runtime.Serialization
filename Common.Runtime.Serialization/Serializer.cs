@@ -6,6 +6,7 @@ namespace Common.Runtime.Serialization
 {
     using Attributes;
     using Transformation;
+    using Parsers;
 
     public abstract class Serializer<T>
         : BaseSerializer, ISerializer<T>
@@ -33,6 +34,7 @@ namespace Common.Runtime.Serialization
 
             Type = type;
             Property = property;
+            Factory = factory;
 
             _setter = Property.CreateSetterDelegate();
             _getter = Property.CreateGetterDelegate();
@@ -56,20 +58,16 @@ namespace Common.Runtime.Serialization
 
             return value;
         }
-
+               
         public override U GetProperty<U>(object item)
         {
-            throw new NotImplementedException();
+            object value = GetPropertyValue(item);
+
+            //if (value == null)
+            //    return null;
+
+            return To<U>(value);
         }
-        //public override U GetProperty<U>(object item)
-        //{
-        //    object value = GetPropertyValue(item);
-
-        //    if (value == null)
-        //        return null;
-
-        //    return value.ToString();
-        //}
 
         public override void SetPropertyValue(object item, object value)
         {
@@ -102,14 +100,26 @@ namespace Common.Runtime.Serialization
             return null;
         }
 
-        public override U To<U>(object item)
+        public sealed override U To<U>(object item)
         {
-            return Factory.Parsers.Find<U>().ParseTo(ConvertFromObject(item));
+            return To(Factory.Parsers.Find<U>(), item);
         }
 
-        public override object From<U>(U value)
+        //TODO make abstract
+        protected virtual U To<U>(IParser<T, U> parser, object item)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
+        }
+
+        public sealed override object From<U>(U item)
+        {
+            return From(Factory.Parsers.Find<U>(), item);
+        }
+
+        //TODO make abstract
+        protected virtual object From<U>(IParser<T, U> parser, U item)
+        {
+            throw new NotSupportedException();
         }
 
     }

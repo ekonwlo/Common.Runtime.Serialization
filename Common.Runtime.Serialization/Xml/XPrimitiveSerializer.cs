@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Xml;
 using System.Xml.Linq;
 using System.Reflection;
 using Common.Reflection;
+using Common.Runtime.Serialization.Parsers;
 
 namespace Common.Runtime.Serialization.Xml
 {
@@ -39,5 +41,52 @@ namespace Common.Runtime.Serialization.Xml
                 return new XElement(Attribute.Name, new XText(value.ToString()));
             }
         }
+
+        protected override U To<U>(IParser<XObject, U> parser, object item)
+        {
+            XObject token;
+
+            if (item == null)
+            {
+                return default(U);
+            }
+            else if (Type.Equals(TypeDefinition.Of(item.GetType())))
+            {
+                token = new XText(item.ToString());
+            }
+            else
+            {
+                throw new SerializationException(string.Format("{0} serializer  cannot parse item of type {1}", Type.Name, item.GetType().Name));
+            }
+
+            return parser.ParseTo(token);
+        }
+
+        protected override object From<U>(IParser<XObject, U> parser, U input)
+        {
+            XObject token = parser.ParseFrom(input);
+
+            switch (token.NodeType)
+            {
+                case XmlNodeType.Text:
+                    try
+                        {
+                            return Convert.ChangeType(input, Type);
+                        }
+                        catch (FormatException ex)
+                        {
+                            throw new SerializationException(string.Format("{0} serializer cannot parse item {1}", Type.Name, input), ex);
+                        }
+                        catch (OverflowException ex)
+                        {
+                            throw new SerializationException(string.Format("{0} serializer cannot parse item {1}", Type.Name, input), ex);
+                        }
+                default:
+                    throw new SerializationException(string.Format("{0} serializer cannot parse item from type {1}", Type.Name, token.NodeType));
+            }
+            
+        }
+
+
     }
 }

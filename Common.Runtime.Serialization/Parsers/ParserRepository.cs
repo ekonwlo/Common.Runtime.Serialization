@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Common.Runtime.Serialization.Parsers
 {
-    internal class ParserRepository<T> : IEnumerable<IParser>
+    internal sealed class ParserRepository<T> : IEnumerable<IParser>
     {
         private readonly IDictionary<Type, IParser> _parsers;
 

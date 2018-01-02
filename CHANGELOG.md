@@ -1,5 +1,11 @@
 2017-12-26 Konrad Wlodarczyk
 
+    Version 0.9.0.17
+
+    Fixing primitive serializers
+
+2017-12-26 Konrad Wlodarczyk
+
     Version 0.9.0.16
 
     Updating dependencies

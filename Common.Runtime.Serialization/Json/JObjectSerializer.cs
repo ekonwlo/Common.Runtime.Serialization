@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 using Common.Reflection;
+using Common.Runtime.Serialization.Parsers;
 
 namespace Common.Runtime.Serialization.Json
 {
@@ -77,14 +78,14 @@ namespace Common.Runtime.Serialization.Json
             return subitem;
         }
 
-        public sealed override U To<U>(object item)
+        protected sealed override U To<U>(IParser<JToken, U> parser, object item)
         {
-            return Factory.Parsers.Find<U>().ParseTo(ConvertFromObject(item));
+            return parser.ParseTo(ConvertFromObject(item));
         }
 
-        public sealed override object From<U>(U input)
+        protected sealed override object From<U>(IParser<JToken, U> parser, U input)
         {
-            return ConvertToObject(Factory.Parsers.Find<U>().ParseFrom(input));
+            return ConvertToObject(parser.ParseFrom(input));
         }
 
     }

@@ -12,7 +12,7 @@ namespace Common.Runtime.Serialization.Json
         : NullableSerializer<JToken>
     {
         internal JNullableSerializer(SerializerFactory<JToken> factory, TypeDefinition type, PropertyInfo property, ISerializableProperty attribute, string format, Transformator transformator)
-            : base(factory, type, property, attribute, format, transformator) 
+            : base(factory, type, property, attribute, format, transformator)
         { }
 
         public override JToken ConvertFromObject(object item)

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Reflection;
 using Common.Reflection;
+using Common.Runtime.Serialization.Parsers;
 
 namespace Common.Runtime.Serialization.Xml
 {
@@ -58,9 +59,9 @@ namespace Common.Runtime.Serialization.Xml
             return o;
         }
 
-        public sealed override object From<U>(U input)
+        protected sealed override object From<U>(IParser<XObject, U> parser, U input)
         {
-            return ConvertToObject(Factory.Parsers.Find<U>().ParseFrom(input));
+            return ConvertToObject(parser.ParseFrom(input));
         }
 
     }
