@@ -118,6 +118,8 @@ namespace Common.Runtime.Serialization.IntegTests.Xml
         {
             Assert.Throws<ArgumentNullException>(() => { _stringSerializer.From<string>(null); });
 
+            Assert.Throws<SerializationException>(() => { _stringSerializer.From<string>("<abc>"); });
+            Assert.Throws<SerializationException>(() => { _stringSerializer.From<string>("&abc"); });
             Assert.Throws<SerializationException>(() => { _boolSerializer.From<string>("\"invalid\""); });
             Assert.Throws<SerializationException>(() => { _byteSerializer.From<string>("\"invalid\""); });
             Assert.Throws<SerializationException>(() => { _byteSerializer.From<string>("256"); });

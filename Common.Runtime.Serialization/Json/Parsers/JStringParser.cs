@@ -12,7 +12,14 @@ namespace Common.Runtime.Serialization.Json.Parsers
         {
             if (input == null) throw new ArgumentNullException("input", "Input is required");
 
-            return JToken.Parse(input);
+            try
+            {
+                return JToken.Parse(input);
+            } 
+            catch (JsonException ex)
+            {
+                throw new SerializationException("Cannot serialize input string", ex);
+            }
         }
 
         public override string ParseTo(JToken input)

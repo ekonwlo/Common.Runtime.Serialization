@@ -103,6 +103,7 @@ namespace Common.Runtime.Serialization.IntegTests.Json
         [Fact(DisplayName = "should parse from string")]
         public void ShouldParseFromString()
         {
+            Assert.Null(_stringSerializer.From<string>("null"));
             Assert.Equal("abc", _stringSerializer.From<string>("\"abc\""));
             Assert.Equal(true, _boolSerializer.From<string>("true"));
             Assert.Equal(Byte.MaxValue, _byteSerializer.From<string>(Byte.MaxValue.ToString()));
@@ -117,10 +118,12 @@ namespace Common.Runtime.Serialization.IntegTests.Json
         public void ShouldThrowOnParsingFromString()
         {
             Assert.Throws<ArgumentNullException>(() => { _stringSerializer.From<string>(null); } );
-            
+
+            Assert.Throws<ArgumentNullException>(() => { _stringSerializer.From<string>("[:]"); });
             Assert.Throws<SerializationException>(() => { _boolSerializer.From<string>("\"invalid\""); });
             Assert.Throws<SerializationException>(() => { _byteSerializer.From<string>("\"invalid\""); });
             Assert.Throws<SerializationException>(() => { _byteSerializer.From<string>("256"); });
+            Assert.Throws<SerializationException>(() => { _byteSerializer.From<string>("[256]"); });
         }
     }
 }

@@ -1,3 +1,9 @@
+2018-01-03 Konrad Wlodarczyk
+
+    Version 0.9.0.18
+
+    Adding SerializationException
+
 2017-12-26 Konrad Wlodarczyk
 
     Version 0.9.0.17

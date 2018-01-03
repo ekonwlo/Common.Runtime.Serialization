@@ -9,6 +9,7 @@ namespace Common.Runtime.Serialization.Xml
 {
     using Attributes;
     using Transformation;
+    using Parsers;
 
     sealed class XPrimitiveSerializer
         : PrimitiveSerializer<XObject>
@@ -83,8 +84,7 @@ namespace Common.Runtime.Serialization.Xml
                         }
                 default:
                     throw new SerializationException(string.Format("{0} serializer cannot parse item from type {1}", Type.Name, token.NodeType));
-            }
-            
+            }            
         }
 
 

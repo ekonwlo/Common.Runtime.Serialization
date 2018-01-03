@@ -17,7 +17,7 @@ namespace Common.Runtime.Serialization
 
         private readonly SerializersMap<T> _hash;
 
-        internal ParserRepository<T> Parsers { get; private set; }
+        internal protected ParserRepository<T> Parsers { get; private set; }
 
         protected SerializerFactory()
         {
